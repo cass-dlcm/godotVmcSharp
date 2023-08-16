@@ -84,6 +84,9 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Set/Calib/Exec":
                     new VmcExtSetCalibExec(m);
                     break;
+                case "/VMC/Ext/Set/Config":
+                    new VmcExtSetConfig(m);
+                    break;
                 case "/VMC/Ext/Light":
                     new VmcExtLight(m);
                     break;
