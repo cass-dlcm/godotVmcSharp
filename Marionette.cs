@@ -78,7 +78,7 @@ namespace godotVmcSharp
                     new VmcExtMidiNote(m);
                     break;
                 case "/VMC/Ext/Midi/CC/Val":
-                    MidiValue(m.Data);
+                    new VmcExtMidiCcVal(m);
                     break;
                 case "/VMC/Ext/Midi/CC/Bit":
                     MidiButton(m.Data);
@@ -105,21 +105,6 @@ namespace godotVmcSharp
                     ValidateReceiveEnable(m.Data);
                     break;
             }
-        }
-        private void MidiValue(List<godotOscSharp.OscArgument> data)
-        {
-            var addr = "/VMC/Ext/Midi/CC/Val";
-            if (data[0].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "knob", 'i', data[0].Type));
-                return;
-            }
-            if (data[1].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "value", 'f', data[1].Type));
-                return;
-            }
-            GD.Print($"CC value input on knob {(int)data[0].Value} with value {(float)data[1].Value}.");
         }
         private void MidiButton(List<godotOscSharp.OscArgument> data)
         {
