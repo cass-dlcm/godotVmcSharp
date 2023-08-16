@@ -76,5 +76,11 @@ namespace godotVmcSharp
             serial = (string)m.Data[0].Value;
             transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
         }
+
+        public VmcExtDevicePos(godotOscSharp.Address _addr, string _serial, Godot.Transform3D _transform) : base(_addr)
+        {
+            serial = _serial;
+            transform = _transform;
+        }
     }
 }
