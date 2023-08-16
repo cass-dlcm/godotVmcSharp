@@ -72,7 +72,7 @@ namespace godotVmcSharp
                     new VmcExtCon(m);
                     break;
                 case "/VMC/Ext/Key":
-                    KeyInput(m.Data);
+                    new VmcExtKey(m);
                     break;
                 case "/VMC/Ext/Midi/Note":
                     MidiNote(m.Data);
@@ -103,36 +103,6 @@ namespace godotVmcSharp
                     break;
                 case "/VMC/Ext/Rcv":
                     ValidateReceiveEnable(m.Data);
-                    break;
-            }
-        }
-        private void KeyInput(List<godotOscSharp.OscArgument> data)
-        {
-            var addr = "/VMC/Ext/Key";
-            if (data[0].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "active", 'i', data[0].Type));
-                return;
-            }
-            if (data[1].Type != 's')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "name", 's', data[1].Type));
-                return;
-            }
-            if (data[2].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "keycode", 'i', data[2].Type));
-            }
-            switch ((int)data[0].Value)
-            {
-                case 0:
-                    GD.Print($"Key {(string)data[1].Value} ({(int)data[2].Value}) is released");
-                    break;
-                case 1:
-                    GD.Print($"Key {(string)data[1].Value} ({(int)data[2].Value}) is pressed");
-                    break;
-                default:
-                    GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {(int)data[0].Value}");
                     break;
             }
         }
