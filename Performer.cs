@@ -45,14 +45,26 @@ namespace godotVmcSharp
         {
             switch (m.Address.ToString())
             {
+                case "/VMC/Ext/Hmd/Pos":
+                    new VmcExtDevicePos(m);
+                    break;
+                case "/VMC/Ext/Con/Pos":
+                    new VmcExtDevicePos(m);
+                    break;
+                case "/VMC/Ext/Tra/Pos":
+                    new VmcExtDevicePos(m);
+                    break;
+                case "/VMC/Ext/Midi/CC/Val":
+                    new VmcExtMidiCcVal(m);
+                    break;
+                case "/VMC/Ext/Cam":
+                    new VmcExtCam(m);
+                    break;
                 case "/VMC/Ext/Blend/Val":
                     new VmcExtBlendVal(m);
                     break;
                 case "/VMC/Ext/Blend/Apply":
                     new VmcMessage(m.Address);
-                    break;
-                case "/VMC/Ext/Cam":
-                    new VmcExtCam(m);
                     break;
                 case "/VMC/Ext/Light":
                     new VmcExtLight(m);
