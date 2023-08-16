@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -130,6 +131,10 @@ namespace godotVmcSharp
                 name == "mouthPressLeft" || name == "mouthPressRight" ||
                 name == "mouthStretchLeft" || name == "mouthStretchRight" ||
                 name == "tongueOut";
+        }
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{new godotOscSharp.OscArgument(name, 's'), new godotOscSharp.OscArgument(value, 'f')});
         }
     }
 }
