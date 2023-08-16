@@ -22,7 +22,7 @@ using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
-    public class VmcExtHmdPos : VmcMessage
+    public class VmcExtDevicePos : VmcMessage
     {
         public string serial { get; }
         public Godot.Transform3D transform { get; }

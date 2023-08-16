@@ -84,48 +84,23 @@ namespace godotVmcSharp
                     MidiButton(m.Data);
                     break;
                 case "/VMC/Ext/Hmd/Pos":
-                    new VmcExtHmdPos(m);
+                    new VmcExtDevicePos(m);
                     break;
-//                case "/VMC/Ext/Con/Pos":
-//                    if (m.Data.Count == 8)
-//                    {
-//                        GD.Print(Transform8(m.Data, m.Address.ToString(), new List<string>{"serial", "p.x", "p.y", "p.z", "q.x", "q.y", "q.z", "q.w"}).ToString());
-//                    } else {
-//                        GD.Print($"Invalid number of arguments for \"{m.Address.ToString()}\". Expected 8, received {m.Data.Count}.");
-//                    }
-//                    break;
-//                case "/VMC/Ext/Tra/Pos":
-//                    if (m.Data.Count == 8)
-//                    {
-//                        GD.Print(Transform8(m.Data, m.Address.ToString(), new List<string>{"serial", "p.x", "p.y", "p.z", "q.x", "q.y", "q.z", "q.w"}).ToString());
-//                    } else {
-//                        GD.Print($"Invalid number of arguments for \"{m.Address.ToString()}\". Expected 8, received {m.Data.Count}.");
-//                    }
-//                    break;
-//                case "/VMC/Ext/Hmd/Pos/Local":
-//                    if (m.Data.Count == 8)
-//                    {
-//                        GD.Print(Transform8(m.Data, m.Address.ToString(), new List<string>{"serial", "p.x", "p.y", "p.z", "q.x", "q.y", "q.z", "q.w"}).ToString());
-//                    } else {
-//                        GD.Print($"Invalid number of arguments for \"{m.Address.ToString()}\". Expected 8, received {m.Data.Count}.");
-//                    }
-//                    break;
-//                case "/VMC/Ext/Con/Pos/Local":
-//                    if (m.Data.Count == 8)
-//                    {
-//                        GD.Print(Transform8(m.Data, m.Address.ToString(), new List<string>{"serial", "p.x", "p.y", "p.z", "q.x", "q.y", "q.z", "q.w"}).ToString());
-//                    } else {
-//                        GD.Print($"Invalid number of arguments for \"{m.Address.ToString()}\". Expected 8, received {m.Data.Count}.");
-//                    }
-//                    break;
-//                case "/VMC/Ext/Tra/Pos/Local":
-//                    if (m.Data.Count == 8)
-//                    {
-//                        GD.Print(Transform8(m.Data, m.Address.ToString(), new List<string>{"serial", "p.x", "p.y", "p.z", "q.x", "q.y", "q.z", "q.w"}).ToString());
-//                    } else {
-//                        GD.Print($"Invalid number of arguments for \"{m.Address.ToString()}\". Expected 8, received {m.Data.Count}.");
-//                    }
-//                    break;
+                case "/VMC/Ext/Con/Pos":
+                    new VmcExtDevicePos(m);
+                    break;
+                case "/VMC/Ext/Tra/Pos":
+                    new VmcExtDevicePos(m);
+                    break;
+                case "/VMC/Ext/Hmd/Pos/Local":
+                    new VmcExtDevicePos(m);
+                    break;
+                case "/VMC/Ext/Con/Pos/Local":
+                    new VmcExtDevicePos(m);
+                    break;
+                case "/VMC/Ext/Tra/Pos/Local":
+                    new VmcExtDevicePos(m);
+                    break;
                 case "/VMC/Ext/Rcv":
                     ValidateReceiveEnable(m.Data);
                     break;
