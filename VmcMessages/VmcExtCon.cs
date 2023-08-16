@@ -83,5 +83,20 @@ namespace godotVmcSharp
             isAxis = (int)m.Data[4].Value;
             axis = new Godot.Vector3((float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value);
         }
+
+        public VmcExtCon(int _active, string _name, int _isLeft, int _isTouch, int _isAxis, Godot.Vector3 _axis): base(new godotOscSharp.Address("/VMC/Ext/Con"))
+        {
+            if (_active < 0 || _active > 2)
+            {
+                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0-2, received {_active}");
+                return;
+            }
+            active = _active;
+            name = _name;
+            isLeft = _isLeft;
+            isTouch = _isTouch;
+            isAxis = _isAxis;
+            axis = _axis
+        }
     }
 }
