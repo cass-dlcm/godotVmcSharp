@@ -54,6 +54,9 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Tra/Pos":
                     new VmcExtDevicePos(m);
                     break;
+                case "/VMC/Ext/Set/Period":
+                    new VmcExtSetPeriod(m);
+                    break;
                 case "/VMC/Ext/Midi/CC/Val":
                     new VmcExtMidiCcVal(m);
                     break;
