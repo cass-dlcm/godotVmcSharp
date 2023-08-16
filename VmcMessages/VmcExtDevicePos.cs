@@ -18,7 +18,6 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {

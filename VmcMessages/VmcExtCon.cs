@@ -1,3 +1,24 @@
+/*
+    godotVmcSharp
+    Copyright (C) 2023  Cassandra de la Cruz-Munoz
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    */
+
+using Godot;
+using godotOscSharp;
+
 namespace godotVmcSharp
 {
     public class VmcExtCon : VmcMessage
@@ -50,17 +71,17 @@ namespace godotVmcSharp
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "Axis.z", 'f', m.Data[7].Type));
             }
-            if ((int)m.Data[0] < 0 || (int)m.Data[0] > 2)
+            if ((int)m.Data[0].Value < 0 || (int)m.Data[0].Value > 2)
             {
                 GD.Print($"Invalid value for \"active\" 'i' argument of /VMC/Ext/Con. Expected 0-2, received {(int)m.Data[0].Value}");
                 return;
             }
-            active = (int)m.Data[0];
-            name = (string)m.Data[1];
-            isLeft = (int)m.Data[2];
-            isTouch = (int)m.Data[3];
-            isAxis = (int)m.Data[4];
-            axis = new Godot.Vector3((float)m.Data[5], (float)m.Data[6], (float)m.Data[7]);
+            active = (int)m.Data[0].Value;
+            name = (string)m.Data[1].Value;
+            isLeft = (int)m.Data[2].Value;
+            isTouch = (int)m.Data[3].Value;
+            isAxis = (int)m.Data[4].Value;
+            axis = new Godot.Vector3((float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value);
         }
     }
 }
