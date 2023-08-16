@@ -69,6 +69,9 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Blend/Apply":
                     new VmcMessage(m.Address);
                     break;
+                case "/VMC/Ext/Set/Eye":
+                    new VmcExtSetEye(m);
+                    break;
                 case "/VMC/Ext/Light":
                     new VmcExtLight(m);
                     break;
