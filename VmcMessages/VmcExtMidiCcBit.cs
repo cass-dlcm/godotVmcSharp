@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -55,6 +56,14 @@ namespace godotVmcSharp
             }
             knob = _knob;
             active = _active;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(knob, 'i'),
+                new godotOscSharp.OscArgument(active, 'i')
+            });
         }
     }
 }
