@@ -83,14 +83,9 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Midi/CC/Bit":
                     MidiButton(m.Data);
                     break;
-//                case "/VMC/Ext/Hmd/Pos":
-//                    if (m.Data.Count == 8)
-//                    {
-//                        GD.Print(Transform8(m.Data, m.Address.ToString(), new List<string>{"serial", "p.x", "p.y", "p.z", "q.x", "q.y", "q.z", "q.w"}).ToString());
-//                    } else {
-//                        GD.Print($"Invalid number of arguments for \"{m.Address.ToString()}\". Expected 8, received {m.Data.Count}.");
-//                    }
-//                    break;
+                case "/VMC/Ext/Hmd/Pos":
+                    new VmcExtHmdPos(m);
+                    break;
 //                case "/VMC/Ext/Con/Pos":
 //                    if (m.Data.Count == 8)
 //                    {
