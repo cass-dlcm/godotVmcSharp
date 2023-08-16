@@ -99,5 +99,12 @@ namespace godotVmcSharp
             transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
             color = new Godot.Color((float)m.Data[8].Value, (float)m.Data[9].Value, (float)m.Data[10].Value, (float)m.Data[11].Value);
         }
+
+        public VmcExtLight(string _name, Godot.Transform3D _transform, Godot.Color _color) : base(new godotOscSharp.Address("/VMC/Ext/Light"))
+        {
+            name = _name;
+            transform = _transform;
+            color = _color;
+        }
     }
 }
