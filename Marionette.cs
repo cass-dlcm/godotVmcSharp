@@ -110,6 +110,9 @@ namespace godotVmcSharp
                 case "/VMC/Ext/VRM":
                     new VmcExtVrm(m);
                     break;
+                case "/VMC/Ext/Remote":
+                    new VmcExtRemote(m);
+                    break;
             }
         }
     }
