@@ -29,7 +29,7 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 1)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 11, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {addr}. Expecting 1, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 's')
