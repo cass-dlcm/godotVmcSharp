@@ -69,7 +69,7 @@ namespace godotVmcSharp
                     new VmcExtCam(m);
                     break;
                 case "/VMC/Ext/Con":
-                    ControllerInput(m.Data);
+                    new VmcExtCon(m);
                     break;
                 case "/VMC/Ext/Key":
                     KeyInput(m.Data);
@@ -105,65 +105,6 @@ namespace godotVmcSharp
                     ValidateReceiveEnable(m.Data);
                     break;
             }
-        }
-        private void ControllerInput(List<godotOscSharp.OscArgument> data)
-        {
-            var addr = "VMC/Ext/Con";
-            if (data.Count != 8)
-            {
-                GD.Print($"Invalid number of arguments for /VMC/Ext/Con. Expected 8, received {data.Count}.");
-                return;
-            }
-            if (data[0].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "active", 'i', data[0].Type));
-                return;
-            }
-            if (data[1].Type != 's')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "name", 's', data[1].Type));
-                return;
-            }
-            if (data[2].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "IsLeft", 'i', data[2].Type));
-            }
-            if (data[3].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "IsTouch", 'i', data[3].Type));
-            }
-            if (data[4].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "IsAxis", 'i', data[4].Type));
-            }
-            if (data[5].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "Axis.x", 'f', data[5].Type));
-            }
-            if (data[6].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "Axis.y", 'f', data[6].Type));
-            }
-            if (data[7].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "Axis.z", 'f', data[7].Type));
-            }
-            switch ((int)data[0].Value)
-            {
-                case 0:
-                    GD.Print("controller release");
-                    break;
-                case 1:
-                    GD.Print("controller press");
-                    break;
-                case 2:
-                    GD.Print("controller change axis");
-                    break;
-                default:
-                    GD.Print($"Invalid value for \"active\" 'i' argument of /VMC/Ext/Con. Expected 0-2, received {(int)data[0].Value}");
-                    return;
-            }
-            GD.Print($"\t\"Name\": \"{(string)data[1].Value}\",\n\t\"IsLeft\": {(int)data[2].Value},\n\t\"IsTouch\": {(int)data[3].Value},\n\t\"IsAxis\": {(int)data[4].Value}\n\t\"Axis\"\n\t\t\"x\": {(float)data[5].Value}\n\t\t\"y\": {(float)data[6].Value}\n\t\t\"z\": {(float)data[7].Value}\n");
         }
         private void KeyInput(List<godotOscSharp.OscArgument> data)
         {
