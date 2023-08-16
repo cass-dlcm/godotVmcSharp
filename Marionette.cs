@@ -81,7 +81,7 @@ namespace godotVmcSharp
                     new VmcExtMidiCcVal(m);
                     break;
                 case "/VMC/Ext/Midi/CC/Bit":
-                    MidiButton(m.Data);
+                    new VmcExtMidiCcBit(m);
                     break;
                 case "/VMC/Ext/Hmd/Pos":
                     new VmcExtDevicePos(m);
@@ -104,37 +104,6 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Rcv":
                     ValidateReceiveEnable(m.Data);
                     break;
-            }
-        }
-        private void MidiButton(List<godotOscSharp.OscArgument> data)
-        {
-            var addr = "/VMC/Ext/Midi/CC/Bit";
-            if (data.Count != 2)
-            {
-                GD.Print($"Invalid argument count for \"{addr}\". Expected 2, received {data.Count}");
-                return;
-            }
-            if (data[0].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "knob", 'i', data[0].Type));
-                return;
-            }
-            if (data[1].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "active", 'i', data[1].Type));
-                return;
-            }
-            switch ((int)data[1].Value)
-            {
-                case 0:
-                    GD.Print("Button released on knob {(int)data[0].Value}");
-                    break;
-                case 1:
-                    GD.Print("Button pressed on knob {(int)data[0].Value}");
-                    break;
-                default:
-                    GD.Print($"Invalid value for \"active\" argument of {addr}. Expected 0 or 1, received {(int)data[1].Value}.");
-                    return;
             }
         }
         private bool ValidateReceiveEnable(List<godotOscSharp.OscArgument> data)
