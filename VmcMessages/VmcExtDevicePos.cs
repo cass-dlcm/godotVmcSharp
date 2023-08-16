@@ -27,7 +27,7 @@ namespace godotVmcSharp
         public string serial { get; }
         public Godot.Transform3D transform { get; }
 
-        public VmcExtHmdPos(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtDevicePos(godotOscSharp.OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 8)
             {
