@@ -102,43 +102,9 @@ namespace godotVmcSharp
                     new VmcExtDevicePos(m);
                     break;
                 case "/VMC/Ext/Rcv":
-                    ValidateReceiveEnable(m.Data);
+                    new VmcExtRcv(m);
                     break;
             }
-        }
-        private bool ValidateReceiveEnable(List<godotOscSharp.OscArgument> data)
-        {
-            var addr = "/VMC/Ext/Rcv";
-            switch (data.Count)
-            {
-                case 2:
-                    break;
-                case 3:
-                    if (data[2].Type != 's')
-                    {
-                        GD.Print(InvalidArgumentType.GetErrorString(addr, "IpAddress", 's', data[2].Type));
-                        return false;
-                    }
-                    break;
-                default:
-                    return false;
-            }
-            if (data[0].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "enable", 'i', data[0].Type));
-                return false;
-            }
-            if (data[1].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "port", 'i', data[0].Type));
-                return false;
-            }
-            if ((int)data[1].Value < 0 || (int)data[1].Value > 65535)
-            {
-                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {(int)data[1].Value}.");
-                return false;
-            }
-            return true;
         }
     }
 }
