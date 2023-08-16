@@ -35,6 +35,7 @@ namespace godotVmcSharp
             if (m.Data.Count != 6)
             {
                 GD.Print($"Invalid number of arguments for {addr}. Expecting 6, received {m.Data.Count}");
+                return;
             }
             if (m.Data[0].Type != 'i')
             {
