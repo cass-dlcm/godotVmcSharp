@@ -90,6 +90,9 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Light":
                     new VmcExtLight(m);
                     break;
+                case "/VMC/Ext/Set/Shortcut":
+                    new VmcExtSetShortcut(m);
+                    break;
             }
         }
     }
