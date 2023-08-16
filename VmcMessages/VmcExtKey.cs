@@ -52,5 +52,17 @@ namespace godotVmcSharp
             name = (string)m.Data[1].Value;
             keycode = (int)m.Data[2].Value;
         }
+
+        public VmcExtKey(int _active, string _name, int _keycode) : base(new godotOscSharp.Address("/VMC/Ext/Key"))
+        {
+            if (_active < 0 || _active > 1)
+            {
+                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {_active}");
+                return;
+            }
+            active = _active;
+            name = _name;
+            keycode = _keycode;
+        }
     }
 }
