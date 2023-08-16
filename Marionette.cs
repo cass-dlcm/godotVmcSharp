@@ -119,6 +119,9 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Setting/Color":
                     new VmcExtSettingColor(m);
                     break;
+                case "/VMC/Ext/Setting/Win":
+                    new VmcExtSettingWin(m);
+                    break;
             }
         }
     }
