@@ -31,7 +31,7 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 8)
             {
-                GD.Print($"Invalid number of arguments for {base.addr}. Expected 8 or 14, received {m.Data.Count}.");
+                GD.Print($"Invalid number of arguments for {addr}. Expected 8, received {m.Data.Count}.");
                 return;
             }
             if (m.Data[0].Type != 's')
@@ -76,6 +76,12 @@ namespace godotVmcSharp
             }
             name = (string)m.Data[0].Value;
             transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
+        }
+
+        public VmcExtBonePos(string _name, Godot.Transform3D _transform) : base(new godotOscSharp.Address("/VMC/Ext/Bone/Pos"))
+        {
+            name = _name;
+            transform = _transform;
         }
     }
 }
