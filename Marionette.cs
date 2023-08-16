@@ -113,7 +113,7 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Remote":
                     new VmcExtRemote(m);
                     break;
-                case "/VMC/Ext/Opt"
+                case "/VMC/Ext/Opt":
                     new VmcExtOpt(m);
                     break;
             }
