@@ -106,5 +106,24 @@ namespace godotVmcSharp
             transform = _transform;
             color = _color;
         }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            var quat = transform.Basis.GetRotationQuaternion();
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(name, 's'),
+                new godotOscSharp.OscArgument(transform.Origin.X, 'f'),
+                new godotOscSharp.OscArgument(transform.Origin.Y, 'f'),
+                new godotOscSharp.OscArgument(transform.Origin.Z, 'f'),
+                new godotOscSharp.OscArgument(quat.X, 'f'),
+                new godotOscSharp.OscArgument(quat.Y, 'f'),
+                new godotOscSharp.OscArgument(quat.Z, 'f'),
+                new godotOscSharp.OscArgument(quat.W, 'f'),
+                new godotOscSharp.OscArgument(color.R, 'f'),
+                new godotOscSharp.OscArgument(color.G, 'f'),
+                new godotOscSharp.OscArgument(color.B, 'f'),
+                new godotOscSharp.OscArgument(color.A, 'f')
+            });
+        }
     }
 }
