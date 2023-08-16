@@ -45,5 +45,16 @@ namespace godotVmcSharp
             knob = (int)m.Data[0].Value;
             active = (int)m.Data[1].Value;
         }
+
+        public VmcExtMidiCcBit(int _knob, int _active) : base(new godotOscSharp.Address("/VMC/Ext/Midi/CC/Bit"))
+        {
+            if (_active < 0 || _active > 1)
+            {
+                GD.Print($"Invalid value for \"active\" argument of {addr}. Expected 0 or 1, received {_active}.");
+                return;
+            }
+            knob = _knob;
+            active = _active;
+        }
     }
 }
