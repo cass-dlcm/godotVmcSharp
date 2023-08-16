@@ -75,7 +75,7 @@ namespace godotVmcSharp
                     new VmcExtKey(m);
                     break;
                 case "/VMC/Ext/Midi/Note":
-                    MidiNote(m.Data);
+                    new VmcExtMidiNote(m);
                     break;
                 case "/VMC/Ext/Midi/CC/Val":
                     MidiValue(m.Data);
@@ -104,42 +104,6 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Rcv":
                     ValidateReceiveEnable(m.Data);
                     break;
-            }
-        }
-        private void MidiNote(List<godotOscSharp.OscArgument> data)
-        {
-            var addr = "/VMC/Ext/Midi/Note";
-            if (data[0].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "active", 'i', data[0].Type));
-                return;
-            }
-            if (data[1].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "channel", 'i', data[1].Type));
-                return;
-            }
-            if (data[2].Type != 'i')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "note", 'i', data[2].Type));
-                return;
-            }
-            if (data[3].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "velocity", 'f', data[4].Type));
-                return;
-            }
-            switch ((int)data[0].Value)
-            {
-            case 0:
-                GD.Print($"Note event released on channel {(int)data[1].Value} for note {(int)data[2].Value} with velocity {(float)data[3].Value}.");
-                break;
-            case 1:
-                GD.Print($"Note event pressed on channel {(int)data[1].Value} for note {(int)data[2].Value} with velocity {(float)data[3].Value}.");
-                break;
-            default:
-                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {(int)data[0].Value}");
-                return;
             }
         }
         private void MidiValue(List<godotOscSharp.OscArgument> data)
