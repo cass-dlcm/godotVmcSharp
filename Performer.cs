@@ -54,6 +54,9 @@ namespace godotVmcSharp
                 case "/VMC/Ext/Cam":
                     new VmcExtCam(m);
                     break;
+                case "/VMC/Ext/Light":
+                    new VmcExtLight(m);
+                    break;
             }
         }
     }
