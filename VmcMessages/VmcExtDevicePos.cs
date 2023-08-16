@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -30,12 +31,12 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 8)
             {
-                GD.Print($"Invalid number of arguments for {base.addr}. Expected 8 or 14, received {m.Data.Count}.");
+                GD.Print($"Invalid number of arguments for {base.addr}. Expected 8, received {m.Data.Count}.");
                 return;
             }
             if (m.Data[0].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "name", 's', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(addr, "serial", 's', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'f')
@@ -81,6 +82,21 @@ namespace godotVmcSharp
         {
             serial = _serial;
             transform = _transform;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            var quat = transform.Basis.GetRotationQuaternion();
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(serial, 's'),
+                new godotOscSharp.OscArgument(transform.Origin.X, 'f'),
+                new godotOscSharp.OscArgument(transform.Origin.Y, 'f'),
+                new godotOscSharp.OscArgument(transform.Origin.Z, 'f'),
+                new godotOscSharp.OscArgument(quat.X, 'f'),
+                new godotOscSharp.OscArgument(quat.Y, 'f'),
+                new godotOscSharp.OscArgument(quat.Z, 'f'),
+                new godotOscSharp.OscArgument(quat.W, 'f')
+            });
         }
     }
 }
