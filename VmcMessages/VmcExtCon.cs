@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -96,7 +97,21 @@ namespace godotVmcSharp
             isLeft = _isLeft;
             isTouch = _isTouch;
             isAxis = _isAxis;
-            axis = _axis
+            axis = _axis;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(active, 'i'),
+                new godotOscSharp.OscArgument(name, 's'),
+                new godotOscSharp.OscArgument(isLeft, 'i'),
+                new godotOscSharp.OscArgument(isTouch, 'i'),
+                new godotOscSharp.OscArgument(isAxis, 'i'),
+                new godotOscSharp.OscArgument(axis.X, 'i'),
+                new godotOscSharp.OscArgument(axis.Y, 'i'),
+                new godotOscSharp.OscArgument(axis.Z, 'i'),
+            });
         }
     }
 }
