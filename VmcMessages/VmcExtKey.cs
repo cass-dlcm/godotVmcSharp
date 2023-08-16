@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -63,6 +64,15 @@ namespace godotVmcSharp
             active = _active;
             name = _name;
             keycode = _keycode;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(active, 'i'),
+                new godotOscSharp.OscArgument(name, 's'),
+                new godotOscSharp.OscArgument(keycode, 'i')
+            });
         }
     }
 }
