@@ -80,5 +80,33 @@ namespace godotVmcSharp
             windowClickThrough = (int)m.Data[2].Value;
             hideBorder = (int)m.Data[3].Value;
         }
+
+        public VmcExtSettingWin(int _isTopMost, int _isTransparent, int _windowClickThrough, int _hideBorder) : base(new godotOscSharp.Address("/VMC/Ext/Setting/Win"))
+        {
+            if (_isTopMost < 0 || _isTopMost > 1)
+            {
+                GD.Print($"Invalid value for \"isTopMost\" 'i' argument of {addr}. Expected 0 or 1, received {_isTopMost}");
+                return;
+            }
+            if (_isTransparent < 0 || _isTransparent > 1)
+            {
+                GD.Print($"Invalid value for \"isTransparent\" 'i' argument of {addr}. Expected 0 or 1, received {_isTransparent}");
+                return;
+            }
+            if (_windowClickThrough < 0 || _windowClickThrough > 1)
+            {
+                GD.Print($"Invalid value for \"windowClickThrough\" 'i' argument of {addr}. Expected 0 or 1, received {_windowClickThrough}");
+                return;
+            }
+            if (_hideBorder < 0 || _hideBorder > 1)
+            {
+                GD.Print($"Invalid value for \"hideBorder\" 'i' argument of {addr}. Expected 0 or 1, received {_hideBorder}");
+                return;
+            }
+            isTopMost = _isTopMost;
+            isTransparent = _isTransparent;
+            windowClickThrough = _windowClickThrough;
+            hideBorder = _hideBorder;
+        }
     }
 }
