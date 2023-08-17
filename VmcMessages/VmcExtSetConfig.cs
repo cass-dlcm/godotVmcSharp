@@ -39,5 +39,10 @@ namespace godotVmcSharp
             }
             path = (string)m.Data[0].Value;
         }
+
+        public VmcExtSetConfig(string _path) : base(new godotOscSharp.Address("/VMC/Ext/Set/Config"))
+        {
+            path = _path;
+        }
     }
 }
