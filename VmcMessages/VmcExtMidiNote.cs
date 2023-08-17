@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -72,6 +73,16 @@ namespace godotVmcSharp
             channel = _channel;
             note = _note;
             velocity = _velocity;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(active, 'i'),
+                new godotOscSharp.OscArgument(channel, 'i'),
+                new godotOscSharp.OscArgument(note, 'i'),
+                new godotOscSharp.OscArgument(velocity, 'f')
+            });
         }
     }
 }
