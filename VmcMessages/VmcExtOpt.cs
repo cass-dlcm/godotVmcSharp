@@ -39,5 +39,10 @@ namespace godotVmcSharp
             }
             option = (string)m.Data[0].Value;
         }
+
+        public VmcExtOpt(string _option) : base(new godotOscSharp.Address("/VMC/Ext/Opt"))
+        {
+            option = _option;
+        }
     }
 }
