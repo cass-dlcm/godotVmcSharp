@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -61,6 +62,16 @@ namespace godotVmcSharp
         {
             enable = _enable;
             position = _position;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(enable, 'i'),
+                new godotOscSharp.OscArgument(position.X, 'f'),
+                new godotOscSharp.OscArgument(position.Y, 'f'),
+                new godotOscSharp.OscArgument(position.Z, 'f'),
+            });
         }
     }
 }
