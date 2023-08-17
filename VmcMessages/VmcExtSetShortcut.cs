@@ -39,5 +39,10 @@ namespace godotVmcSharp
             }
             shortcut = (string)m.Data[0].Value;
         }
+
+        public VmcExtSetShortcut(string _shortcut) : base(new godotOscSharp.Address("/VMC/Ext/Set/Shortcut"))
+        {
+            shortcut = _shortcut;
+        }
     }
 }
