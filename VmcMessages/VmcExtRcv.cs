@@ -67,5 +67,38 @@ namespace godotVmcSharp
             }
             ipAddress = (string)m.Data[2].Value;
         }
+
+        public VmcExtRcv(int _enable, int _port) : base(new godotOscSharp.Address("/VMC/Ext/Rcv"))
+        {
+            if (_enable < 0 || _enable > 1)
+            {
+                GD.Print($"Invalid value for \"enable\" argument of {addr}. Expected 0 or 1, received {_enable}.");
+                return;
+            }
+            if (_port < 0 || _port > 65535)
+            {
+                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {_port}.");
+                return;
+            }
+            enable = _enable;
+            port = _port;
+        }
+
+        public VmcExtRcv(int _enable, int _port, string _ipAddress) : base(new godotOscSharp.Address("/VMC/Ext/Rcv"))
+        {
+            if (_enable < 0 || _enable > 1)
+            {
+                GD.Print($"Invalid value for \"enable\" argument of {addr}. Expected 0 or 1, received {_enable}.");
+                return;
+            }
+            if (_port < 0 || _port > 65535)
+            {
+                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {_port}.");
+                return;
+            }
+            enable = _enable;
+            port = _port;
+            ipAddress = _ipAddress;
+        }
     }
 }
