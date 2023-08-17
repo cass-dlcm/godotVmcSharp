@@ -68,5 +68,18 @@ namespace godotVmcSharp
                     return;
             }
         }
+
+        public VmcExtVrm(string _path, string _title) : base(new godotOscSharp.Address("/VMC/Ext/VRM"))
+        {
+            path = _path;
+            title = _title;
+        }
+
+        public VmcExtVrm(string _path, string _title, string _hash) : base(new godotOscSharp.Address("/VMC/Ext/VRM"))
+        {
+            path = _path;
+            title = _title;
+            hash = _hash;
+        }
     }
 }
