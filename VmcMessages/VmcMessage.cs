@@ -22,16 +22,16 @@ namespace godotVmcSharp
 {
     public class VmcMessage
     {
-        public godotOscSharp.OscAddress addr { get; }
+        public godotOscSharp.OscAddress Addr { get; }
 
         public VmcMessage(godotOscSharp.OscAddress address)
         {
-            addr = address;
+            Addr = address;
         }
 
         public godotOscSharp.OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr);
+            return new godotOscSharp.OscMessage(Addr);
         }
     }
 }

@@ -24,11 +24,11 @@ namespace godotVmcSharp
 {
     public class VmcExtVrm : VmcMessage
     {
-        public string path { get; }
-        public string title { get; }
-        public string? hash { get; }
+        public string Path { get; }
+        public string Title { get; }
+        public string Hash { get; }
 
-        public VmcExtVrm(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtVrm(OscMessage m) : base(m.Address)
         {
             switch (m.Data.Count)
             {
@@ -43,8 +43,9 @@ namespace godotVmcSharp
                         GD.Print(InvalidArgumentType.GetErrorString(addr, "title", 's', m.Data[1].Type));
                         return;
                     }
-                    path = (string)m.Data[0].Value;
-                    title = (string)m.Data[1].Value;
+                    Path = (string)m.Data[0].Value;
+                    Title = (string)m.Data[1].Value;
+                    Hash = "";
                     break;
                 case 3:
                     if (m.Data[0].Type != 's')
@@ -62,9 +63,9 @@ namespace godotVmcSharp
                         GD.Print(InvalidArgumentType.GetErrorString(addr, "hash", 's', m.Data[1].Type));
                         return;
                     }
-                    path = (string)m.Data[0].Value;
-                    title = (string)m.Data[1].Value;
-                    hash = (string)m.Data[2].Value;
+                    Path = (string)m.Data[0].Value;
+                    Title = (string)m.Data[1].Value;
+                    Hash = (string)m.Data[2].Value;
                     break;
                 default:
                     GD.Print($"Invalid number of arguments for {addr} message. Expected 2 or 3 but received {m.Data.Count}");
@@ -72,32 +73,33 @@ namespace godotVmcSharp
             }
         }
 
-        public VmcExtVrm(string _path, string _title) : base(new godotOscSharp.OscAddress("/VMC/Ext/VRM"))
+        public VmcExtVrm(string path, string title) : base(new OscAddress("/VMC/Ext/VRM"))
         {
-            path = _path;
-            title = _title;
+            Path = path;
+            Title = title;
+            Hash = "";
         }
 
-        public VmcExtVrm(string _path, string _title, string _hash) : base(new godotOscSharp.OscAddress("/VMC/Ext/VRM"))
+        public VmcExtVrm(string path, string title, string hash) : base(new OscAddress("/VMC/Ext/VRM"))
         {
-            path = _path;
-            title = _title;
-            hash = _hash;
+            Path = path;
+            Title = title;
+            Hash = hash;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            if (hash == null)
+            if (Hash == null)
             {
-                return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                    new godotOscSharp.OscArgument(path, 's'),
-                    new godotOscSharp.OscArgument(title, 's')
+                return new OscMessage(addr, new List<OscArgument>{
+                    new OscArgument(Path, 's'),
+                    new OscArgument(Title, 's')
                 });
             }
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(path, 's'),
-                new godotOscSharp.OscArgument(title, 's'),
-                new godotOscSharp.OscArgument(hash, 's')
+            return new OscMessage(addr, new List<OscArgument>{
+                new OscArgument(Path, 's'),
+                new OscArgument(Title, 's'),
+                new OscArgument(Hash, 's')
             });
         }
     }

@@ -24,9 +24,9 @@ namespace godotVmcSharp
 {
     public class VmcExtSettingColor : VmcMessage
     {
-        public Godot.Color color { get; }
+        public Color Color { get; }
 
-        public VmcExtSettingColor(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtSettingColor(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 4)
             {
@@ -53,21 +53,21 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "a", 'f', m.Data[3].Type));
                 return;
             }
-            color = new Godot.Color((float)m.Data[0].Value, (float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value);
+            Color = new Godot.Color((float)m.Data[0].Value, (float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value);
         }
 
-        public VmcExtSettingColor(Godot.Color _color) : base(new godotOscSharp.OscAddress("/VMC/Ext/Setting/Color"))
+        public VmcExtSettingColor(Color color) : base(new OscAddress("/VMC/Ext/Setting/Color"))
         {
-            color = _color;
+            Color = color;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(color.R, 'f'),
-                new godotOscSharp.OscArgument(color.G, 'f'),
-                new godotOscSharp.OscArgument(color.B, 'f'),
-                new godotOscSharp.OscArgument(color.A, 'f')
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Color.R, 'f'),
+                new OscArgument(Color.G, 'f'),
+                new OscArgument(Color.B, 'f'),
+                new OscArgument(Color.A, 'f')
             });
         }
     }
