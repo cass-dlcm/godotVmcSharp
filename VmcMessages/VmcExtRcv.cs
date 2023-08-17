@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -99,6 +100,22 @@ namespace godotVmcSharp
             enable = _enable;
             port = _port;
             ipAddress = _ipAddress;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            if (ipAddress == null)
+            {
+                return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                    new godotOscSharp.OscArgument(enable, 'i'),
+                    new godotOscSharp.OscArgument(port, 'i'),
+                });
+            }
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(enable, 'i'),
+                new godotOscSharp.OscArgument(port, 'i'),
+                new godotOscSharp.OscArgument(ipAddress, 's'),
+            });
         }
     }
 }
