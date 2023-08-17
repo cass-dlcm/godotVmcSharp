@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -82,6 +83,22 @@ namespace godotVmcSharp
             path = _path;
             title = _title;
             hash = _hash;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            if (hash == null)
+            {
+                return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                    new godotOscSharp.OscArgument(path, 's'),
+                    new godotOscSharp.OscArgument(title, 's')
+                });
+            }
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(path, 's'),
+                new godotOscSharp.OscArgument(title, 's'),
+                new godotOscSharp.OscArgument(hash, 's')
+            });
         }
     }
 }
