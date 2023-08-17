@@ -40,5 +40,11 @@ namespace godotVmcSharp
             knob = (int)m.Data[0].Value;
             value = (int)m.Data[1].Value;
         }
+
+        public VmcExtMidiCcVal(int _knob, float _value) : base(new godotOscSharp.Address("/VMC/Ext/Midi/CC/Val"))
+        {
+            knob = _knob;
+            value = _value;
+        }
     }
 }
