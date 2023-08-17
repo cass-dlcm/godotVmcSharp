@@ -56,5 +56,11 @@ namespace godotVmcSharp
             enable = (int)m.Data[0].Value;
             position = new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value);
         }
+
+        public VmcExtSetEye(int _enable, Godot.Vector3 _position) : base(new godotOscSharp.Address("/VMC/Ext/Set/Eye"))
+        {
+            enable = _enable;
+            position = _position;
+        }
     }
 }
