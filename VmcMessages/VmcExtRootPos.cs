@@ -46,6 +46,20 @@ namespace godotVmcSharp
             }
         }
 
+        public VmcExtRootPos(string _name, Godot.Transform3D _transform) : base(new godotOscSharp.Address("/VMC/Ext/Root/Pos"))
+        {
+            name = _name;
+            transform = _transform;
+        }
+
+        public VmcExtRootPos(string _name, Godot.Transform3D _transform, Godot.Vector3 _scale, Godot.Vector3 _offset) : base(new godotOscSharp.Address("/VMC/Ext/Root/Pos"))
+        {
+            name = _name;
+            transform = _transform;
+            scale = _scale;
+            offset = _offset;
+        }
+
         private void Transform8(List<godotOscSharp.OscArgument> data)
         {
             if (data[0].Type != 's')
