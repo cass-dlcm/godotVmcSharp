@@ -38,5 +38,10 @@ namespace godotVmcSharp
             }
             time = (float)m.Data[0].Value;
         }
+
+        public VmcExtT(float _time) : base(new godotOscSharp.Address("/VMC/Ext/T"))
+        {
+            time = _time;
+        }
     }
 }
