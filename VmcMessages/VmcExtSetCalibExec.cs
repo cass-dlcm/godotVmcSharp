@@ -44,5 +44,15 @@ namespace godotVmcSharp
             }
             mode = (int)m.Data[0].Value;
         }
+
+        public VmcExtSetCalibExec(int _mode) : base(new godotOscSharp.Address("/VMC/Ext/Set/Calib/Exec"))
+        {
+            if (_mode < 0 || _mode > 2)
+            {
+                GD.Print($"Invalid value for argument \"mode\" of \"/VMC/Ext/Set/Calib/Exec\". Expected in range 0-2, received {_mode}");
+                return;
+            }
+            mode = _mode;
+        }
     }
 }
