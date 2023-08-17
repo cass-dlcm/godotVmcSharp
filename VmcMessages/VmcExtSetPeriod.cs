@@ -74,5 +74,15 @@ namespace godotVmcSharp
             camera = (int)m.Data[4].Value;
             devices = (int)m.Data[5].Value;
         }
+
+        public VmcExtSetPeriod(int _status, int _root, int _bone, int _blendShape, int _camera, int _devices) : base(new godotOscSharp.Address("/VMC/Ext/Set/Period"))
+        {
+            status = _status;
+            root = _root;
+            bone = _bone;
+            blendShape = _blendShape;
+            camera = _camera;
+            devices = _devices;
+        }
     }
 }
