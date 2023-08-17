@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -107,6 +108,16 @@ namespace godotVmcSharp
             isTransparent = _isTransparent;
             windowClickThrough = _windowClickThrough;
             hideBorder = _hideBorder;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(isTopMost, 'i'),
+                new godotOscSharp.OscArgument(isTransparent, 'i'),
+                new godotOscSharp.OscArgument(windowClickThrough, 'i'),
+                new godotOscSharp.OscArgument(hideBorder, 'i')
+            });
         }
     }
 }
