@@ -39,5 +39,10 @@ namespace godotVmcSharp
             }
             response = (string)m.Data[0].Value;
         }
+
+        public VmcExtSetRes(string _response) : base(new godotOscSharp.Address("/VMC/Ext/Set/Res"))
+        {
+            response = _response;
+        }
     }
 }
