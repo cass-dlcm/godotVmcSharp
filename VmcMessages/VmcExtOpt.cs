@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -43,6 +44,11 @@ namespace godotVmcSharp
         public VmcExtOpt(string _option) : base(new godotOscSharp.Address("/VMC/Ext/Opt"))
         {
             option = _option;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{new godotOscSharp.OscArgument(option, 's')});
         }
     }
 }
