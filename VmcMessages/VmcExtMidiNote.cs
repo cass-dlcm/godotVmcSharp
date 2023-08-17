@@ -60,5 +60,18 @@ namespace godotVmcSharp
             note = (int)m.Data[2].Value;
             velocity = (int)m.Data[3].Value;
         }
+
+        public VmcExtMidiNote(int _active, int _channel, int _note, float _velocity) : base(new godotOscSharp.Address("/VMC/Ext/Midi/Note"))
+        {
+            if (_active < 0 || _active > 1)
+            {
+                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {active}.");
+                return;
+            }
+            active = _active;
+            channel = _channel;
+            note = _note;
+            velocity = _velocity;
+        }
     }
 }
