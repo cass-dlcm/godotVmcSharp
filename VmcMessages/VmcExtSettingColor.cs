@@ -54,5 +54,10 @@ namespace godotVmcSharp
             }
             color = new Godot.Color((float)m.Data[0].Value, (float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value);
         }
+
+        public VmcExtSettingColor(Godot.Color _color) : base(new godotOscSharp.Address("/VMC/Ext/Setting/Color"))
+        {
+            color = _color;
+        }
     }
 }
