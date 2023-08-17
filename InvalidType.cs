@@ -26,7 +26,7 @@ namespace godotVmcSharp
         {
             return $"Invalid argument type for argument \"{name}\" of \"{address}\". Expected {expected}, received {actual}.";
         }
-        public static string GetErrorString(godotOscSharp.Address address, string name, char expected, char actual)
+        public static string GetErrorString(godotOscSharp.OscAddress address, string name, char expected, char actual)
         {
             return GetErrorString(address.ToString(), name, expected, actual);
         }
