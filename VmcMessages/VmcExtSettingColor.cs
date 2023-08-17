@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -58,6 +59,16 @@ namespace godotVmcSharp
         public VmcExtSettingColor(Godot.Color _color) : base(new godotOscSharp.Address("/VMC/Ext/Setting/Color"))
         {
             color = _color;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(color.R, 'f'),
+                new godotOscSharp.OscArgument(color.G, 'f'),
+                new godotOscSharp.OscArgument(color.B, 'f'),
+                new godotOscSharp.OscArgument(color.A, 'f')
+            });
         }
     }
 }
