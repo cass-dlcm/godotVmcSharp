@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -83,6 +84,18 @@ namespace godotVmcSharp
             blendShape = _blendShape;
             camera = _camera;
             devices = _devices;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(status, 'i'),
+                new godotOscSharp.OscArgument(root, 'i'),
+                new godotOscSharp.OscArgument(bone, 'i'),
+                new godotOscSharp.OscArgument(blendShape, 'i'),
+                new godotOscSharp.OscArgument(camera, 'i'),
+                new godotOscSharp.OscArgument(devices, 'i'),
+            });
         }
     }
 }
