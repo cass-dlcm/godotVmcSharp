@@ -192,19 +192,19 @@ namespace godotVmcSharp
         {
             if (CalibrationState == null)
             {
-                return new OscMessage(addr, new List<OscArgument>{
+                return new OscMessage(Addr, new List<OscArgument>{
                     new OscArgument(Loaded, 'i')
                 });
             }
             if (TrackingStatus == null)
             {
-                return new OscMessage(addr, new List<OscArgument>{
+                return new OscMessage(Addr, new List<OscArgument>{
                     new OscArgument(Loaded, 'i'),
                     new OscArgument(CalibrationState, 'i'),
                     new OscArgument(CalibrationMode, 'i')
                 });
             }
-            return new OscMessage(addr, new List<OscArgument>{
+            return new OscMessage(Addr, new List<OscArgument>{
                 new OscArgument(Loaded, 'i'),
                 new OscArgument(CalibrationState, 'i'),
                 new OscArgument(CalibrationMode, 'i'),

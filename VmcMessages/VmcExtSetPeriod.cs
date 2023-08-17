@@ -34,37 +34,37 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 6)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 6, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr}. Expecting 6, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "status", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "status", 'i', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "root", 'i', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "root", 'i', m.Data[1].Type));
                 return;
             }
             if (m.Data[2].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "bone", 'i', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "bone", 'i', m.Data[2].Type));
                 return;
             }
             if (m.Data[3].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "blendShape", 'i', m.Data[3].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "blendShape", 'i', m.Data[3].Type));
                 return;
             }
             if (m.Data[4].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "camera", 'i', m.Data[4].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "camera", 'i', m.Data[4].Type));
                 return;
             }
             if (m.Data[5].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "devices", 'i', m.Data[5].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "devices", 'i', m.Data[5].Type));
                 return;
             }
             Status = (int)m.Data[0].Value;
@@ -87,7 +87,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Status, 'i'),
                 new OscArgument(Root, 'i'),
                 new OscArgument(Bone, 'i'),

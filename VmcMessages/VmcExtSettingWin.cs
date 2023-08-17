@@ -32,47 +32,47 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 4)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 4, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr}. Expecting 4, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "isTopMost", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "isTopMost", 'i', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "isTransparent", 'i', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "isTransparent", 'i', m.Data[1].Type));
                 return;
             }
             if (m.Data[2].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "windowClickThrough", 'i', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "windowClickThrough", 'i', m.Data[2].Type));
                 return;
             }
             if (m.Data[3].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "hideBorder", 'i', m.Data[3].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "hideBorder", 'i', m.Data[3].Type));
                 return;
             }
             if ((int)m.Data[0].Value < 0 || (int)m.Data[0].Value > 1)
             {
-                GD.Print($"Invalid value for \"isTopMost\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[0].Value}");
+                GD.Print($"Invalid value for \"isTopMost\" 'i' argument of {Addr}. Expected 0 or 1, received {(int)m.Data[0].Value}");
                 return;
             }
             if ((int)m.Data[1].Value < 0 || (int)m.Data[1].Value > 1)
             {
-                GD.Print($"Invalid value for \"isTransparent\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[1].Value}");
+                GD.Print($"Invalid value for \"isTransparent\" 'i' argument of {Addr}. Expected 0 or 1, received {(int)m.Data[1].Value}");
                 return;
             }
             if ((int)m.Data[2].Value < 0 || (int)m.Data[2].Value > 1)
             {
-                GD.Print($"Invalid value for \"windowClickThrough\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[2].Value}");
+                GD.Print($"Invalid value for \"windowClickThrough\" 'i' argument of {Addr}. Expected 0 or 1, received {(int)m.Data[2].Value}");
                 return;
             }
             if ((int)m.Data[3].Value < 0 || (int)m.Data[3].Value > 1)
             {
-                GD.Print($"Invalid value for \"hideBorder\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[3].Value}");
+                GD.Print($"Invalid value for \"hideBorder\" 'i' argument of {Addr}. Expected 0 or 1, received {(int)m.Data[3].Value}");
                 return;
             }
             IsTopMost = (int)m.Data[0].Value;
@@ -85,22 +85,22 @@ namespace godotVmcSharp
         {
             if (isTopMost < 0 || isTopMost > 1)
             {
-                GD.Print($"Invalid value for \"isTopMost\" 'i' argument of {addr}. Expected 0 or 1, received {isTopMost}");
+                GD.Print($"Invalid value for \"isTopMost\" 'i' argument of {Addr}. Expected 0 or 1, received {isTopMost}");
                 return;
             }
             if (isTransparent < 0 || isTransparent > 1)
             {
-                GD.Print($"Invalid value for \"isTransparent\" 'i' argument of {addr}. Expected 0 or 1, received {isTransparent}");
+                GD.Print($"Invalid value for \"isTransparent\" 'i' argument of {Addr}. Expected 0 or 1, received {isTransparent}");
                 return;
             }
             if (windowClickThrough < 0 || windowClickThrough > 1)
             {
-                GD.Print($"Invalid value for \"windowClickThrough\" 'i' argument of {addr}. Expected 0 or 1, received {windowClickThrough}");
+                GD.Print($"Invalid value for \"windowClickThrough\" 'i' argument of {Addr}. Expected 0 or 1, received {windowClickThrough}");
                 return;
             }
             if (hideBorder < 0 || hideBorder > 1)
             {
-                GD.Print($"Invalid value for \"hideBorder\" 'i' argument of {addr}. Expected 0 or 1, received {hideBorder}");
+                GD.Print($"Invalid value for \"hideBorder\" 'i' argument of {Addr}. Expected 0 or 1, received {hideBorder}");
                 return;
             }
             IsTopMost = isTopMost;
@@ -111,7 +111,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(IsTopMost, 'i'),
                 new OscArgument(IsTransparent, 'i'),
                 new OscArgument(WindowClickThrough, 'i'),

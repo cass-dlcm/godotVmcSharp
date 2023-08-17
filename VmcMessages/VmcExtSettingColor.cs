@@ -30,27 +30,27 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 4)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 4, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr}. Expecting 4, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "r", 'f', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "r", 'f', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "g", 'f', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "g", 'f', m.Data[1].Type));
                 return;
             }
             if (m.Data[2].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "b", 'f', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "b", 'f', m.Data[2].Type));
                 return;
             }
             if (m.Data[3].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "a", 'f', m.Data[3].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "a", 'f', m.Data[3].Type));
                 return;
             }
             Color = new Godot.Color((float)m.Data[0].Value, (float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value);
@@ -63,7 +63,7 @@ namespace godotVmcSharp
 
         public OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Color.R, 'f'),
                 new OscArgument(Color.G, 'f'),
                 new OscArgument(Color.B, 'f'),

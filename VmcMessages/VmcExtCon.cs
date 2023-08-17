@@ -39,37 +39,37 @@ namespace godotVmcSharp
             }
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "active", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "active", 'i', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "name", 's', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "name", 's', m.Data[1].Type));
                 return;
             }
             if (m.Data[2].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "IsLeft", 'i', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "IsLeft", 'i', m.Data[2].Type));
             }
             if (m.Data[3].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "IsTouch", 'i', m.Data[3].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "IsTouch", 'i', m.Data[3].Type));
             }
             if (m.Data[4].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "IsAxis", 'i', m.Data[4].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "IsAxis", 'i', m.Data[4].Type));
             }
             if (m.Data[5].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "Axis.x", 'f', m.Data[5].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "Axis.x", 'f', m.Data[5].Type));
             }
             if (m.Data[6].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "Axis.y", 'f', m.Data[6].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "Axis.y", 'f', m.Data[6].Type));
             }
             if (m.Data[7].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "Axis.z", 'f', m.Data[7].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "Axis.z", 'f', m.Data[7].Type));
             }
             if ((int)m.Data[0].Value < 0 || (int)m.Data[0].Value > 2)
             {
@@ -88,7 +88,7 @@ namespace godotVmcSharp
         {
             if (active < 0 || active > 2)
             {
-                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0-2, received {active}");
+                GD.Print($"Invalid value for \"active\" 'i' argument of {Addr}. Expected 0-2, received {active}");
                 return;
             }
             Active = active;
@@ -101,7 +101,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Active, 'i'),
                 new OscArgument(Name, 's'),
                 new OscArgument(IsLeft, 'i'),

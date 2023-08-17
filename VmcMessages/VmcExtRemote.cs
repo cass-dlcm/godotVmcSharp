@@ -30,17 +30,17 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 2)
             {
-                GD.Print($"Invalid number of arguments for {addr} message. Expected 2 but received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr} message. Expected 2 but received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "service", 's', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "service", 's', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "json", 's', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "json", 's', m.Data[1].Type));
                 return;
             }
             Service = (string)m.Data[0].Value;
@@ -55,7 +55,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Service, 's'),
                 new OscArgument(Json, 's')
             });

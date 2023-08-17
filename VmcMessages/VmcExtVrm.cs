@@ -35,12 +35,12 @@ namespace godotVmcSharp
                 case 2:
                     if (m.Data[0].Type != 's')
                     {
-                        GD.Print(InvalidArgumentType.GetErrorString(addr, "path", 's', m.Data[0].Type));
+                        GD.Print(InvalidArgumentType.GetErrorString(Addr, "path", 's', m.Data[0].Type));
                         return;
                     }
                     if (m.Data[1].Type != 's')
                     {
-                        GD.Print(InvalidArgumentType.GetErrorString(addr, "title", 's', m.Data[1].Type));
+                        GD.Print(InvalidArgumentType.GetErrorString(Addr, "title", 's', m.Data[1].Type));
                         return;
                     }
                     Path = (string)m.Data[0].Value;
@@ -50,17 +50,17 @@ namespace godotVmcSharp
                 case 3:
                     if (m.Data[0].Type != 's')
                     {
-                        GD.Print(InvalidArgumentType.GetErrorString(addr, "path", 's', m.Data[0].Type));
+                        GD.Print(InvalidArgumentType.GetErrorString(Addr, "path", 's', m.Data[0].Type));
                         return;
                     }
                     if (m.Data[1].Type != 's')
                     {
-                        GD.Print(InvalidArgumentType.GetErrorString(addr, "title", 's', m.Data[1].Type));
+                        GD.Print(InvalidArgumentType.GetErrorString(Addr, "title", 's', m.Data[1].Type));
                         return;
                     }
                     if (m.Data[2].Type != 's')
                     {
-                        GD.Print(InvalidArgumentType.GetErrorString(addr, "hash", 's', m.Data[1].Type));
+                        GD.Print(InvalidArgumentType.GetErrorString(Addr, "hash", 's', m.Data[1].Type));
                         return;
                     }
                     Path = (string)m.Data[0].Value;
@@ -68,7 +68,7 @@ namespace godotVmcSharp
                     Hash = (string)m.Data[2].Value;
                     break;
                 default:
-                    GD.Print($"Invalid number of arguments for {addr} message. Expected 2 or 3 but received {m.Data.Count}");
+                    GD.Print($"Invalid number of arguments for {Addr} message. Expected 2 or 3 but received {m.Data.Count}");
                     return;
             }
         }
@@ -91,12 +91,12 @@ namespace godotVmcSharp
         {
             if (Hash == null)
             {
-                return new OscMessage(addr, new List<OscArgument>{
+                return new OscMessage(Addr, new List<OscArgument>{
                     new OscArgument(Path, 's'),
                     new OscArgument(Title, 's')
                 });
             }
-            return new OscMessage(addr, new List<OscArgument>{
+            return new OscMessage(Addr, new List<OscArgument>{
                 new OscArgument(Path, 's'),
                 new OscArgument(Title, 's'),
                 new OscArgument(Hash, 's')

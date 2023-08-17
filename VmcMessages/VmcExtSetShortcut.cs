@@ -29,12 +29,12 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 1)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 1, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr}. Expecting 1, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "shortcut", 's', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "shortcut", 's', m.Data[0].Type));
                 return;
             }
             Shortcut = (string)m.Data[0].Value;
@@ -47,7 +47,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{new OscArgument(Shortcut, 's')});
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{new OscArgument(Shortcut, 's')});
         }
     }
 }

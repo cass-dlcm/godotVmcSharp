@@ -29,12 +29,12 @@ namespace godotVmcSharp
         {
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "knob", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "knob", 'i', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "value", 'f', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "value", 'f', m.Data[1].Type));
                 return;
             }
             Knob = (int)m.Data[0].Value;
@@ -49,7 +49,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Knob, 'i'),
                 new OscArgument(Value, 'f')
             });

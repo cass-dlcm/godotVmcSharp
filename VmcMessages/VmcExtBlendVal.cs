@@ -34,12 +34,12 @@ namespace godotVmcSharp
             }
             if (m.Data[0].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "name", 's', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "name", 's', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "value", 'f', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "value", 'f', m.Data[1].Type));
                 return;
             }
             var blendShape = (string)m.Data[0].Value;
@@ -61,7 +61,7 @@ namespace godotVmcSharp
                 Value = (float)m.Data[1].Value;
                 return;
             }
-            GD.Print($"Invalid argument for {addr}. BlendShape \"{blendShape}\" not in list.");
+            GD.Print($"Invalid argument for {Addr}. BlendShape \"{blendShape}\" not in list.");
         }
 
         public VmcExtBlendVal(string name, float value) : base(new OscAddress("VMC/Ext/Blend/Val"))
@@ -84,7 +84,7 @@ namespace godotVmcSharp
                 Value = value;
                 return;
             }
-            GD.Print($"Invalid argument for {addr}. BlendShape \"{name}\" not in list.");
+            GD.Print($"Invalid argument for {Addr}. BlendShape \"{name}\" not in list.");
         }
 
         private bool IsVrm0BlendShape(string name)
@@ -134,7 +134,7 @@ namespace godotVmcSharp
         }
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument> {
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument> {
                 new OscArgument(Name, 's'),
                 new OscArgument(Value, 'f')
             });

@@ -30,54 +30,54 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 8)
             {
-                GD.Print($"Invalid number of arguments for {base.addr}. Expected 8, received {m.Data.Count}.");
+                GD.Print($"Invalid number of arguments for {base.Addr}. Expected 8, received {m.Data.Count}.");
                 return;
             }
             if (m.Data[0].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "serial", 's', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "serial", 's', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.x", 'f', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "p.x", 'f', m.Data[1].Type));
                 return;
             }
             if (m.Data[2].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.y", 'f', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "p.y", 'f', m.Data[2].Type));
                 return;
             }
             if (m.Data[3].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.z", 'f', m.Data[3].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "p.z", 'f', m.Data[3].Type));
                 return;
             }
             if (m.Data[4].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.x", 'f', m.Data[4].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "q.x", 'f', m.Data[4].Type));
                 return;
             }
             if (m.Data[5].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.y", 'f', m.Data[5].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "q.y", 'f', m.Data[5].Type));
                 return;
             }
             if (m.Data[6].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.z", 'f', m.Data[6].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "q.z", 'f', m.Data[6].Type));
                 return;
             }
             if (m.Data[7].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.w", 'f', m.Data[7].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "q.w", 'f', m.Data[7].Type));
                 return;
             }
             Serial = (string)m.Data[0].Value;
             Transform = new Transform3D(new Basis(new Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
         }
 
-        public VmcExtDevicePos(OscAddress addr, string serial, Transform3D transform) : base(addr)
+        public VmcExtDevicePos(OscAddress Addr, string serial, Transform3D transform) : base(Addr)
         {
             Serial = serial;
             Transform = transform;
@@ -86,7 +86,7 @@ namespace godotVmcSharp
         public new OscMessage ToMessage()
         {
             var quat = Transform.Basis.GetRotationQuaternion();
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Serial, 's'),
                 new OscArgument(Transform.Origin.X, 'f'),
                 new OscArgument(Transform.Origin.Y, 'f'),
