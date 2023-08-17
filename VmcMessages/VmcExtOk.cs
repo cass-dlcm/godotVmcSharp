@@ -30,11 +30,30 @@ namespace godotVmcSharp
 
         public VmcExtOk(int _loaded) : base(new godotOscSharp.Address("/VMC/Ext/OK"))
         {
+            if (_loaded < 0 || _loaded > 1)
+            {
+                GD.Print($"Invalid value for loaded status. Expected 0 or 1, received {_loaded}.");
+                break;
+            }
             loaded = _loaded;
         }
 
         public VmcExtOk(int _loaded, int _calibrationState, int _calibrationMode) : base(new godotOscSharp.Address("/VMC/Ext/OK"))
         {
+            if (_loaded < 0 || _loaded > 1)
+            {
+                GD.Print($"Invalid value for loaded status. Expected 0 or 1, received {_loaded}.");
+                break;
+            }
+            if (_calibrationState < 0 || _calibrationState > 3)
+            {
+                GD.Print($"Invalid value for calibration state. Expected 0-3, received {_calibrationState}");
+            }
+            if (_calibrationMode < 0 || _calibrationMode > 2)
+            {
+                GD.Print($"Invalid value for calibration mode. Expected 0-2, received {_calibrationMode}");
+                break;
+            }
             loaded = _loaded;
             calibrationState = _calibrationState;
             calibrationMode = _calibrationMode;
@@ -42,6 +61,25 @@ namespace godotVmcSharp
 
         public VmcExtOk(int _loaded, int _calibrationState, int _calibrationMode, int _trackingStatus) : base(new godotOscSharp.Address("/VMC/Ext/OK"))
         {
+            if (_loaded < 0 || _loaded > 1)
+            {
+                GD.Print($"Invalid value for loaded status. Expected 0 or 1, received {_loaded}.");
+                break;
+            }
+            if (_calibrationState < 0 || _calibrationState > 3)
+            {
+                GD.Print($"Invalid value for calibration state. Expected 0-3, received {_calibrationState}");
+            }
+            if (_calibrationMode < 0 || _calibrationMode > 2)
+            {
+                GD.Print($"Invalid value for calibration mode. Expected 0-2, received {_calibrationMode}");
+                break;
+            }
+            if (_trackingStatus < 0 || _trackingStatus > 1)
+            {
+                GD.Print($"Invalid value for tracking status. Expected 0-1, received {_trackingStatus}");
+                break;
+            }
             loaded = _loaded;
             calibrationState = _calibrationState;
             calibrationMode = _calibrationMode;
