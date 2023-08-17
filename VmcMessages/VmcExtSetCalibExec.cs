@@ -54,5 +54,10 @@ namespace godotVmcSharp
             }
             mode = _mode;
         }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{new godotOscSharp.OscArgument(mode, 'i')});
+        }
     }
 }
