@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -51,6 +52,14 @@ namespace godotVmcSharp
         {
             service = _service;
             json = _json;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
+                new godotOscSharp.OscArgument(service, 's'),
+                new godotOscSharp.OscArgument(json, 's')
+            });
         }
     }
 }
