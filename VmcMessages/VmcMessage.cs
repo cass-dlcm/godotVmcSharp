@@ -28,5 +28,10 @@ namespace godotVmcSharp
         {
             addr = address;
         }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr);
+        }
     }
 }
