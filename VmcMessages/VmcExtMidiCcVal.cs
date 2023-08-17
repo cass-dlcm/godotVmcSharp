@@ -18,15 +18,14 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtMidiCcVal : VmcMessage
     {
-        public int knob { get; }
-        public float value { get; }
-        public VmcExtMidiCcVal(godotOscSharp.OscMessage m) : base(m.Address)
+        public int Knob { get; }
+        public float Value { get; }
+        public VmcExtMidiCcVal(OscMessage m) : base(m.Address)
         {
             if (m.Data[0].Type != 'i')
             {
@@ -38,21 +37,21 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "value", 'f', m.Data[1].Type));
                 return;
             }
-            knob = (int)m.Data[0].Value;
-            value = (int)m.Data[1].Value;
+            Knob = (int)m.Data[0].Value;
+            Value = (int)m.Data[1].Value;
         }
 
-        public VmcExtMidiCcVal(int _knob, float _value) : base(new godotOscSharp.Address("/VMC/Ext/Midi/CC/Val"))
+        public VmcExtMidiCcVal(int knob, float value) : base(new OscAddress("/VMC/Ext/Midi/CC/Val"))
         {
-            knob = _knob;
-            value = _value;
+            Knob = knob;
+            Value = value;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(knob, 'i'),
-                new godotOscSharp.OscArgument(value, 'f')
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Knob, 'i'),
+                new OscArgument(Value, 'f')
             });
         }
     }

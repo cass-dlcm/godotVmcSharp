@@ -18,20 +18,19 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtSetPeriod : VmcMessage
     {
-        public int status { get; }
-        public int root { get; }
-        public int bone { get; }
-        public int blendShape { get; }
-        public int camera { get; }
-        public int devices { get; }
+        public int Status { get; }
+        public int Root { get; }
+        public int Bone { get; }
+        public int BlendShape { get; }
+        public int Camera { get; }
+        public int Devices { get; }
 
-        public VmcExtSetPeriod(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtSetPeriod(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 6)
             {
@@ -68,33 +67,33 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "devices", 'i', m.Data[5].Type));
                 return;
             }
-            status = (int)m.Data[0].Value;
-            root = (int)m.Data[1].Value;
-            bone = (int)m.Data[2].Value;
-            blendShape = (int)m.Data[3].Value;
-            camera = (int)m.Data[4].Value;
-            devices = (int)m.Data[5].Value;
+            Status = (int)m.Data[0].Value;
+            Root = (int)m.Data[1].Value;
+            Bone = (int)m.Data[2].Value;
+            BlendShape = (int)m.Data[3].Value;
+            Camera = (int)m.Data[4].Value;
+            Devices = (int)m.Data[5].Value;
         }
 
-        public VmcExtSetPeriod(int _status, int _root, int _bone, int _blendShape, int _camera, int _devices) : base(new godotOscSharp.Address("/VMC/Ext/Set/Period"))
+        public VmcExtSetPeriod(int status, int root, int bone, int blendShape, int camera, int devices) : base(new OscAddress("/VMC/Ext/Set/Period"))
         {
-            status = _status;
-            root = _root;
-            bone = _bone;
-            blendShape = _blendShape;
-            camera = _camera;
-            devices = _devices;
+            Status = status;
+            Root = root;
+            Bone = bone;
+            BlendShape = blendShape;
+            Camera = camera;
+            Devices = devices;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(status, 'i'),
-                new godotOscSharp.OscArgument(root, 'i'),
-                new godotOscSharp.OscArgument(bone, 'i'),
-                new godotOscSharp.OscArgument(blendShape, 'i'),
-                new godotOscSharp.OscArgument(camera, 'i'),
-                new godotOscSharp.OscArgument(devices, 'i'),
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Status, 'i'),
+                new OscArgument(Root, 'i'),
+                new OscArgument(Bone, 'i'),
+                new OscArgument(BlendShape, 'i'),
+                new OscArgument(Camera, 'i'),
+                new OscArgument(Devices, 'i'),
             });
         }
     }

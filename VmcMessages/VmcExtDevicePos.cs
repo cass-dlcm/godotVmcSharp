@@ -18,16 +18,15 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtDevicePos : VmcMessage
     {
-        public string serial { get; }
-        public Godot.Transform3D transform { get; }
+        public string Serial { get; }
+        public Transform3D Transform { get; }
 
-        public VmcExtDevicePos(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtDevicePos(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 8)
             {
@@ -74,28 +73,28 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "q.w", 'f', m.Data[7].Type));
                 return;
             }
-            serial = (string)m.Data[0].Value;
-            transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
+            Serial = (string)m.Data[0].Value;
+            Transform = new Transform3D(new Basis(new Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
         }
 
-        public VmcExtDevicePos(godotOscSharp.Address _addr, string _serial, Godot.Transform3D _transform) : base(_addr)
+        public VmcExtDevicePos(OscAddress addr, string serial, Transform3D transform) : base(addr)
         {
-            serial = _serial;
-            transform = _transform;
+            Serial = serial;
+            Transform = transform;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            var quat = transform.Basis.GetRotationQuaternion();
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(serial, 's'),
-                new godotOscSharp.OscArgument(transform.Origin.X, 'f'),
-                new godotOscSharp.OscArgument(transform.Origin.Y, 'f'),
-                new godotOscSharp.OscArgument(transform.Origin.Z, 'f'),
-                new godotOscSharp.OscArgument(quat.X, 'f'),
-                new godotOscSharp.OscArgument(quat.Y, 'f'),
-                new godotOscSharp.OscArgument(quat.Z, 'f'),
-                new godotOscSharp.OscArgument(quat.W, 'f')
+            var quat = Transform.Basis.GetRotationQuaternion();
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Serial, 's'),
+                new OscArgument(Transform.Origin.X, 'f'),
+                new OscArgument(Transform.Origin.Y, 'f'),
+                new OscArgument(Transform.Origin.Z, 'f'),
+                new OscArgument(quat.X, 'f'),
+                new OscArgument(quat.Y, 'f'),
+                new OscArgument(quat.Z, 'f'),
+                new OscArgument(quat.W, 'f')
             });
         }
     }

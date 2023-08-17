@@ -18,15 +18,14 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtSetCalibExec : VmcMessage
     {
-        public int mode { get; }
+        public int Mode { get; }
 
-        public VmcExtSetCalibExec(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtSetCalibExec(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 1)
             {
@@ -43,22 +42,22 @@ namespace godotVmcSharp
                 GD.Print($"Invalid value for argument \"mode\" of \"/VMC/Ext/Set/Calib/Exec\". Expected in range 0-2, received {(int)m.Data[0].Value}");
                 return;
             }
-            mode = (int)m.Data[0].Value;
+            Mode = (int)m.Data[0].Value;
         }
 
-        public VmcExtSetCalibExec(int _mode) : base(new godotOscSharp.Address("/VMC/Ext/Set/Calib/Exec"))
+        public VmcExtSetCalibExec(int mode) : base(new OscAddress("/VMC/Ext/Set/Calib/Exec"))
         {
-            if (_mode < 0 || _mode > 2)
+            if (mode < 0 || mode > 2)
             {
-                GD.Print($"Invalid value for argument \"mode\" of \"/VMC/Ext/Set/Calib/Exec\". Expected in range 0-2, received {_mode}");
+                GD.Print($"Invalid value for argument \"mode\" of \"/VMC/Ext/Set/Calib/Exec\". Expected in range 0-2, received {mode}");
                 return;
             }
-            mode = _mode;
+            Mode = mode;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{new godotOscSharp.OscArgument(mode, 'i')});
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{new OscArgument(Mode, 'i')});
         }
     }
 }

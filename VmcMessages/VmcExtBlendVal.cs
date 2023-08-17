@@ -18,17 +18,17 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtBlendVal : VmcMessage
     {
-        public string name { get; }
-        public float value { get; }
-        public VmcExtBlendVal(godotOscSharp.OscMessage m) : base(m.Address)
+        public string Name { get; }
+        public float Value { get; }
+        public VmcExtBlendVal(OscMessage m) : base(m.Address)
         {
-            if (m.Data.Count != 2) {
+            if (m.Data.Count != 2)
+            {
                 GD.Print($"Invalid number of arguments for /VMC/Ext/Blend/Val. Expected 2, received {m.Data.Count}.");
                 return;
             }
@@ -43,65 +43,65 @@ namespace godotVmcSharp
                 return;
             }
             var blendShape = (string)m.Data[0].Value;
-            if (isVrm0BlendShape(blendShape))
+            if (IsVrm0BlendShape(blendShape))
             {
-                name = blendShape;
-                value = (float)m.Data[1].Value;
+                Name = blendShape;
+                Value = (float)m.Data[1].Value;
                 return;
             }
-            if (isVrm1Expression(blendShape))
+            if (IsVrm1Expression(blendShape))
             {
-                name = blendShape;
-                value = (float)m.Data[1].Value;
+                Name = blendShape;
+                Value = (float)m.Data[1].Value;
                 return;
             }
-            if (isArkitBlendShape(blendShape))
+            if (IsArkitBlendShape(blendShape))
             {
-                name = blendShape;
-                value = (float)m.Data[1].Value;
+                Name = blendShape;
+                Value = (float)m.Data[1].Value;
                 return;
             }
             GD.Print($"Invalid argument for {addr}. BlendShape \"{blendShape}\" not in list.");
         }
 
-        public VmcExtBlendVal(string _name, float _value) : base(new godotOscSharp.Address("VMC/Ext/Blend/Val"))
+        public VmcExtBlendVal(string name, float value) : base(new OscAddress("VMC/Ext/Blend/Val"))
         {
-            if (isVrm0BlendShape(_name))
+            if (IsVrm0BlendShape(name))
             {
-                name = _name;
-                value = _value;
+                Name = name;
+                Value = value;
                 return;
             }
-            if (isVrm1Expression(_name))
+            if (IsVrm1Expression(name))
             {
-                name = _name;
-                value = _value;
+                Name = name;
+                Value = value;
                 return;
             }
-            if (isArkitBlendShape(_name))
+            if (IsArkitBlendShape(name))
             {
-                name = _name;
-                value = _value;
+                Name = name;
+                Value = value;
                 return;
             }
-            GD.Print($"Invalid argument for {addr}. BlendShape \"{_name}\" not in list.");
+            GD.Print($"Invalid argument for {addr}. BlendShape \"{name}\" not in list.");
         }
 
-        private bool isVrm0BlendShape(string name)
+        private bool IsVrm0BlendShape(string name)
         {
             return name == "Joy" || name == "Angry" || name == "Sorrow" || name == "Fun" ||
                name == "A" || name == "I" || name == "U" || name == "E" || name == "O" ||
                name == "Blink_L" || name == "Blink_R";
         }
 
-        private bool isVrm1Expression(string name)
+        private bool IsVrm1Expression(string name)
         {
             return name == "happy" || name == "angry" || name == "sad" || name == "relaxed" ||
                name == "aa" || name == "ih" || name == "ou" || name == "ee" || name == "oh" ||
                name == "blinkLeft" || name == "blinkRight";
         }
 
-        private bool isArkitBlendShape(string name)
+        private bool IsArkitBlendShape(string name)
         {
             return name == "browInnerUp" ||
                 name == "browDownLeft" || name == "browDownRight" ||
@@ -132,9 +132,12 @@ namespace godotVmcSharp
                 name == "mouthStretchLeft" || name == "mouthStretchRight" ||
                 name == "tongueOut";
         }
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{new godotOscSharp.OscArgument(name, 's'), new godotOscSharp.OscArgument(value, 'f')});
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument> {
+                new OscArgument(Name, 's'),
+                new OscArgument(Value, 'f')
+            });
         }
     }
 }

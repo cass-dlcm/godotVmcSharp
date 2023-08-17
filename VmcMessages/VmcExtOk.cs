@@ -24,169 +24,191 @@ namespace godotVmcSharp
 {
     public class VmcExtOk : VmcMessage
     {
-        public int loaded { get; private set; }
-        public int? calibrationState { get; private set; }
-        public int? calibrationMode { get; private set; }
-        public int? trackingStatus { get; private set; }
+        public int Loaded { get; }
+        public int? CalibrationState { get; }
+        public int? CalibrationMode { get; }
+        public int? TrackingStatus { get; }
 
-        public VmcExtOk(int _loaded) : base(new godotOscSharp.Address("/VMC/Ext/OK"))
+        public VmcExtOk(int loaded) : base(new OscAddress("/VMC/Ext/OK"))
         {
-            if (_loaded < 0 || _loaded > 1)
+            if (loaded < 0 || loaded > 1)
             {
-                GD.Print($"Invalid value for loaded status. Expected 0 or 1, received {_loaded}.");
+                GD.Print($"Invalid value for loaded status. Expected 0 or 1, received {loaded}.");
                 return;
             }
-            loaded = _loaded;
+            Loaded = loaded;
         }
 
-        public VmcExtOk(int _loaded, int _calibrationState, int _calibrationMode) : base(new godotOscSharp.Address("/VMC/Ext/OK"))
+        public VmcExtOk(int loaded, int calibrationState, int calibrationMode) : base(new OscAddress("/VMC/Ext/OK"))
         {
-            if (_loaded < 0 || _loaded > 1)
+            if (loaded < 0 || loaded > 1)
             {
-                GD.Print($"Invalid value for loaded status. Expected 0 or 1, received {_loaded}.");
+                GD.Print($"Invalid value for loaded status. Expected 0 or 1, received {loaded}.");
                 return;
             }
-            if (_calibrationState < 0 || _calibrationState > 3)
+            if (calibrationState < 0 || calibrationState > 3)
             {
-                GD.Print($"Invalid value for calibration state. Expected 0-3, received {_calibrationState}");
+                GD.Print($"Invalid value for calibration state. Expected 0-3, received {calibrationState}");
                 return;
             }
-            if (_calibrationMode < 0 || _calibrationMode > 2)
+            if (calibrationMode < 0 || calibrationMode > 2)
             {
-                GD.Print($"Invalid value for calibration mode. Expected 0-2, received {_calibrationMode}");
+                GD.Print($"Invalid value for calibration mode. Expected 0-2, received {calibrationMode}");
                 return;
             }
-            loaded = _loaded;
-            calibrationState = _calibrationState;
-            calibrationMode = _calibrationMode;
+            Loaded = loaded;
+            CalibrationState = calibrationState;
+            CalibrationMode = calibrationMode;
         }
 
-        public VmcExtOk(int _loaded, int _calibrationState, int _calibrationMode, int _trackingStatus) : base(new godotOscSharp.Address("/VMC/Ext/OK"))
+        public VmcExtOk(int loaded, int calibrationState, int calibrationMode, int trackingStatus) : base(new OscAddress("/VMC/Ext/OK"))
         {
-            if (_loaded < 0 || _loaded > 1)
+            if (loaded < 0 || loaded > 1)
             {
-                GD.Print($"Invalid value for loaded status. Expected 0 or 1, received {_loaded}.");
+                GD.Print($"Invalid value for loaded status. Expected 0 or 1, received {loaded}.");
                 return;
             }
-            if (_calibrationState < 0 || _calibrationState > 3)
+            if (calibrationState < 0 || calibrationState > 3)
             {
-                GD.Print($"Invalid value for calibration state. Expected 0-3, received {_calibrationState}");
+                GD.Print($"Invalid value for calibration state. Expected 0-3, received {calibrationState}");
                 return;
             }
-            if (_calibrationMode < 0 || _calibrationMode > 2)
+            if (calibrationMode < 0 || calibrationMode > 2)
             {
-                GD.Print($"Invalid value for calibration mode. Expected 0-2, received {_calibrationMode}");
+                GD.Print($"Invalid value for calibration mode. Expected 0-2, received {calibrationMode}");
                 return;
             }
-            if (_trackingStatus < 0 || _trackingStatus > 1)
+            if (trackingStatus < 0 || trackingStatus > 1)
             {
-                GD.Print($"Invalid value for tracking status. Expected 0-1, received {_trackingStatus}");
+                GD.Print($"Invalid value for tracking status. Expected 0-1, received {trackingStatus}");
                 return;
             }
-            loaded = _loaded;
-            calibrationState = _calibrationState;
-            calibrationMode = _calibrationMode;
-            trackingStatus = _trackingStatus;
+            Loaded = loaded;
+            CalibrationState = calibrationState;
+            CalibrationMode = calibrationMode;
+            TrackingStatus = trackingStatus;
         }
 
-        public VmcExtOk(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtOk(OscMessage m) : base(m.Address)
         {
             switch (m.Data.Count)
             {
                 case 1:
-                    OkParam0(m.Data[0]);
+                    if (!OkParam0(m.Data[0]))
+                    {
+                        return;
+                    }
+                    Loaded = (int)m.Data[0].Value;
                     break;
                 case 3:
-                    OkParam1And2(m.Data[0], m.Data[1], m.Data[2]);
+                    if (!OkParam1And2(m.Data[0], m.Data[1], m.Data[2]))
+                    {
+                        return;
+                    }
+                    Loaded = (int)m.Data[0].Value;
+                    CalibrationState = (int)m.Data[1].Value;
+                    CalibrationMode = (int)m.Data[2].Value;
                     break;
                 case 4:
-                    OkParam3(m.Data[0], m.Data[1], m.Data[2], m.Data[3]);
+                    if (!OkParam3(m.Data[0], m.Data[1], m.Data[2], m.Data[3]))
+                    {
+                        return;
+                    }
+                    Loaded = (int)m.Data[0].Value;
+                    CalibrationState = (int)m.Data[1].Value;
+                    CalibrationMode = (int)m.Data[2].Value;
+                    TrackingStatus = (int)m.Data[3].Value;
                     break;
                 default:
                     GD.Print($"Invalid number of arguments for /VMC/Ext/OK message. Expected 1, 3, or 4 but received {m.Data.Count}");
-                    break;
+                    return;
             }
         }
 
-        private void OkParam0(godotOscSharp.OscArgument arg)
+        private bool OkParam0(OscArgument arg)
         {
             if (arg.Type != 'i')
             {
                 GD.Print($"Invalid argument type for /VMC/Ext/OK message. Expected int in argument 0, received {arg.Type}");
-                return;
+                return false;
             }
             if ((int)arg.Value < 0 && (int)arg.Value > 1)
             {
                 GD.Print($"Invalid value for loaded status. Expected 0-1, received {(int)arg.Value}");
-                return;
+                return false;
             }
-            loaded = (int)arg.Value;
+            return true;
         }
 
-        private void OkParam1And2(godotOscSharp.OscArgument arg0, godotOscSharp.OscArgument arg1, godotOscSharp.OscArgument arg2)
+        private bool OkParam1And2(OscArgument arg0, OscArgument arg1, OscArgument arg2)
         {
-            OkParam0(arg0);
+            if (!OkParam0(arg0))
+            {
+                return false;
+            }
             if (arg1.Type != 'i')
             {
                 GD.Print($"Invalid argument type for /VMC/Ext/OK message. Expected int in argument 1, received {arg1.Type}");
-                return;
+                return false;
             }
             if (arg2.Type != 'i')
             {
                 GD.Print($"Invalid argument type for /VMC/Ext/OK message. Expected int in argument 2, received {arg2.Type}");
-                return;
+                return false;
             }
             if ((int)arg1.Value < 0 && (int)arg1.Value > 3)
             {
                 GD.Print($"Invalid value for calibration state. Expected 0-3, received {(int)arg1.Value}");
-                return;
+                return false;
             }
             if ((int)arg2.Value < 0 && (int)arg2.Value > 2)
             {
                 GD.Print($"Invalid value for calibration mode. Expected 0-2, received {(int)arg2.Value}");
-                return;
+                return false;
             }
-            calibrationState = (int)arg1.Value;
-            calibrationMode = (int)arg2.Value;
+            return true;
         }
 
-        private void OkParam3(godotOscSharp.OscArgument arg0, godotOscSharp.OscArgument arg1, godotOscSharp.OscArgument arg2, godotOscSharp.OscArgument arg)
+        private bool OkParam3(OscArgument arg0, OscArgument arg1, OscArgument arg2, OscArgument arg)
         {
-            OkParam1And2(arg0, arg1, arg2);
+            if (!OkParam1And2(arg0, arg1, arg2))
+            {
+                return false;
+            }
             if (arg.Type != 'i')
             {
                 GD.Print($"Invalid argument type for /VMC/Ext/OK message. Expected int in argument 3, received {arg.Type}");
-                return;
+                return false;
             }
             if ((int)arg.Value < 0 && (int)arg.Value > 1)
             {
                 GD.Print($"Invalid value for tracking status. Expected 0-1, received {(int)arg.Value}");
-                return;
+                return false;
             }
-            trackingStatus = (int)arg.Value;
+            return true;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            if (calibrationState == null)
+            if (CalibrationState == null)
             {
-                return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                    new godotOscSharp.OscArgument(loaded, 'i')
+                return new OscMessage(addr, new List<OscArgument>{
+                    new OscArgument(Loaded, 'i')
                 });
             }
-            if (trackingStatus == null)
+            if (TrackingStatus == null)
             {
-                return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                    new godotOscSharp.OscArgument(loaded, 'i'),
-                    new godotOscSharp.OscArgument(calibrationState, 'i'),
-                    new godotOscSharp.OscArgument(calibrationMode, 'i')
+                return new OscMessage(addr, new List<OscArgument>{
+                    new OscArgument(Loaded, 'i'),
+                    new OscArgument(CalibrationState, 'i'),
+                    new OscArgument(CalibrationMode, 'i')
                 });
             }
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(loaded, 'i'),
-                new godotOscSharp.OscArgument(calibrationState, 'i'),
-                new godotOscSharp.OscArgument(calibrationMode, 'i'),
-                new godotOscSharp.OscArgument(trackingStatus, 'i')
+            return new OscMessage(addr, new List<OscArgument>{
+                new OscArgument(Loaded, 'i'),
+                new OscArgument(CalibrationState, 'i'),
+                new OscArgument(CalibrationMode, 'i'),
+                new OscArgument(TrackingStatus, 'i')
             });
         }
     }

@@ -24,11 +24,11 @@ namespace godotVmcSharp
 {
     public class VmcExtLight : VmcMessage
     {
-        public string name { get; }
-        public Godot.Transform3D transform { get; }
-        public Godot.Color color { get; }
+        public string Name { get; }
+        public Transform3D Transform { get; }
+        public Color Color { get; }
 
-        public VmcExtLight(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtLight(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 12)
             {
@@ -95,34 +95,34 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "color.alpha", 'f', m.Data[11].Type));
                 return;
             }
-            name = (string)m.Data[0].Value;
-            transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
-            color = new Godot.Color((float)m.Data[8].Value, (float)m.Data[9].Value, (float)m.Data[10].Value, (float)m.Data[11].Value);
+            Name = (string)m.Data[0].Value;
+            Transform = new Transform3D(new Basis(new Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
+            Color = new Color((float)m.Data[8].Value, (float)m.Data[9].Value, (float)m.Data[10].Value, (float)m.Data[11].Value);
         }
 
-        public VmcExtLight(string _name, Godot.Transform3D _transform, Godot.Color _color) : base(new godotOscSharp.Address("/VMC/Ext/Light"))
+        public VmcExtLight(string name, Transform3D transform, Color color) : base(new OscAddress("/VMC/Ext/Light"))
         {
-            name = _name;
-            transform = _transform;
-            color = _color;
+            Name = name;
+            Transform = transform;
+            Color = color;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            var quat = transform.Basis.GetRotationQuaternion();
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(name, 's'),
-                new godotOscSharp.OscArgument(transform.Origin.X, 'f'),
-                new godotOscSharp.OscArgument(transform.Origin.Y, 'f'),
-                new godotOscSharp.OscArgument(transform.Origin.Z, 'f'),
-                new godotOscSharp.OscArgument(quat.X, 'f'),
-                new godotOscSharp.OscArgument(quat.Y, 'f'),
-                new godotOscSharp.OscArgument(quat.Z, 'f'),
-                new godotOscSharp.OscArgument(quat.W, 'f'),
-                new godotOscSharp.OscArgument(color.R, 'f'),
-                new godotOscSharp.OscArgument(color.G, 'f'),
-                new godotOscSharp.OscArgument(color.B, 'f'),
-                new godotOscSharp.OscArgument(color.A, 'f')
+            var quat = Transform.Basis.GetRotationQuaternion();
+            return new OscMessage(addr, new List<OscArgument>{
+                new OscArgument(Name, 's'),
+                new OscArgument(Transform.Origin.X, 'f'),
+                new OscArgument(Transform.Origin.Y, 'f'),
+                new OscArgument(Transform.Origin.Z, 'f'),
+                new OscArgument(quat.X, 'f'),
+                new OscArgument(quat.Y, 'f'),
+                new OscArgument(quat.Z, 'f'),
+                new OscArgument(quat.W, 'f'),
+                new OscArgument(Color.R, 'f'),
+                new OscArgument(Color.G, 'f'),
+                new OscArgument(Color.B, 'f'),
+                new OscArgument(Color.A, 'f')
             });
         }
     }

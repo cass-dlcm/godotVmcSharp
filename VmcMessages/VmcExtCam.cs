@@ -17,6 +17,7 @@
     */
 
 using Godot;
+using godotOscSharp;
 
 namespace godotVmcSharp
 {
@@ -27,7 +28,7 @@ namespace godotVmcSharp
         public Transform3D Transform { get; }
         public float Fov { get; }
 
-        public VmcExtCam(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtCam(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 9)
             {
@@ -80,30 +81,30 @@ namespace godotVmcSharp
                 return;
             }
             Name = (string)m.Data[0].Value;
-            Transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
+            Transform = new Transform3D(new Basis(new Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
             Fov = (float)m.Data[8].Value;
         }
 
-        public VmcExtCam(string name, Transform3D transform, float fov) : base(new godotOscSharp.Address("/VMC/Ext/Cam"))
+        public VmcExtCam(string name, Transform3D transform, float fov) : base(new OscAddress("/VMC/Ext/Cam"))
         {
             Name = name;
             Transform = transform;
             Fov = fov;
         }
 
-        public new godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
             var quat = Transform.Basis.GetRotationQuaternion();
-            return new godotOscSharp.OscMessage(addr, new System.Collections.Generic.List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(Name, 's'),
-                new godotOscSharp.OscArgument(Transform.Origin.X, 'f'),
-                new godotOscSharp.OscArgument(Transform.Origin.Y, 'f'),
-                new godotOscSharp.OscArgument(Transform.Origin.Z, 'f'),
-                new godotOscSharp.OscArgument(quat.X, 'f'),
-                new godotOscSharp.OscArgument(quat.Y, 'f'),
-                new godotOscSharp.OscArgument(quat.Z, 'f'),
-                new godotOscSharp.OscArgument(quat.W, 'f'),
-                new godotOscSharp.OscArgument(Fov, 'f')
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Name, 's'),
+                new OscArgument(Transform.Origin.X, 'f'),
+                new OscArgument(Transform.Origin.Y, 'f'),
+                new OscArgument(Transform.Origin.Z, 'f'),
+                new OscArgument(quat.X, 'f'),
+                new OscArgument(quat.Y, 'f'),
+                new OscArgument(quat.Z, 'f'),
+                new OscArgument(quat.W, 'f'),
+                new OscArgument(Fov, 'f')
             });
         }
     }

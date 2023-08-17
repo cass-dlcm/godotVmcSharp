@@ -18,16 +18,15 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtSetEye : VmcMessage
     {
-        public int enable { get; }
-        public Godot.Vector3 position { get; }
+        public int Enable { get; }
+        public Vector3 Position { get; }
 
-        public VmcExtSetEye(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtSetEye(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 4)
             {
@@ -54,23 +53,23 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "p.z", 'f', m.Data[3].Type));
                 return;
             }
-            enable = (int)m.Data[0].Value;
-            position = new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value);
+            Enable = (int)m.Data[0].Value;
+            Position = new Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value);
         }
 
-        public VmcExtSetEye(int _enable, Godot.Vector3 _position) : base(new godotOscSharp.Address("/VMC/Ext/Set/Eye"))
+        public VmcExtSetEye(int enable, Vector3 position) : base(new OscAddress("/VMC/Ext/Set/Eye"))
         {
-            enable = _enable;
-            position = _position;
+            Enable = enable;
+            Position = position;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(enable, 'i'),
-                new godotOscSharp.OscArgument(position.X, 'f'),
-                new godotOscSharp.OscArgument(position.Y, 'f'),
-                new godotOscSharp.OscArgument(position.Z, 'f'),
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Enable, 'i'),
+                new OscArgument(Position.X, 'f'),
+                new OscArgument(Position.Y, 'f'),
+                new OscArgument(Position.Z, 'f'),
             });
         }
     }

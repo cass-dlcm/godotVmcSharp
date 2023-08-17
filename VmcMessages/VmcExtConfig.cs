@@ -18,15 +18,14 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtConfig : VmcMessage
     {
-        public string path { get; }
+        public string Path { get; }
 
-        public VmcExtConfig(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtConfig(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 1)
             {
@@ -38,17 +37,17 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "path", 's', m.Data[0].Type));
                 return;
             }
-            path = (string)m.Data[0].Value;
+            Path = (string)m.Data[0].Value;
         }
 
-        public VmcExtConfig(string _path) : base(new godotOscSharp.Address("/VMC/Ext/Config"))
+        public VmcExtConfig(string path) : base(new OscAddress("/VMC/Ext/Config"))
         {
-            path = _path;
+            Path = path;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{new godotOscSharp.OscArgument(path, 's')});
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument> { new OscArgument(Path, 's') });
         }
     }
 }

@@ -19,202 +19,175 @@
 using Godot;
 using godotOscSharp;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace godotVmcSharp
 {
     public class VmcExtRootPos : VmcMessage
     {
-        public string name { get; private set; }
-        public Godot.Transform3D transform { get; private set;}
+        public string Name { get; }
+        public Transform3D Transform { get; }
 
-        public Godot.Vector3? scale { get; private set; }
-        public Godot.Vector3? offset { get; private set; }
+        public Vector3? Scale { get; }
+        public Vector3? Offset { get; }
 
-        public VmcExtRootPos(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtRootPos(OscMessage m) : base(m.Address)
         {
             switch (m.Data.Count)
             {
                 case 8:
-                    Transform8(m.Data);
+                    if (!Transform8(m.Data))
+                    {
+                        return;
+                    }
+                    Name = (string)m.Data[0].Value;
+                    Transform = new Transform3D(new Basis(new Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
                     break;
                 case 14:
-                    Transform14(m.Data);
+                    if (!Transform14(m.Data))
+                    {
+                        return;
+                    }
+                    Name = (string)m.Data[0].Value;
+                    Transform = new Transform3D(new Basis(new Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
+                    Scale = new Vector3((float)m.Data[8].Value, (float)m.Data[9].Value, (float)m.Data[10].Value);
+                    Offset = new Vector3((float)m.Data[11].Value, (float)m.Data[12].Value, (float)m.Data[13].Value);
                     break;
                 default:
-                    GD.Print($"Invalid number of arguments for {base.addr}. Expected 8 or 14, received {m.Data.Count}.");
-                    break;
+                    GD.Print($"Invalid number of arguments for {addr}. Expected 8 or 14, received {m.Data.Count}.");
+                    return;
             }
         }
 
-        public VmcExtRootPos(string _name, Godot.Transform3D _transform) : base(new godotOscSharp.Address("/VMC/Ext/Root/Pos"))
+        public VmcExtRootPos(string name, Transform3D transform) : base(new OscAddress("/VMC/Ext/Root/Pos"))
         {
-            name = _name;
-            transform = _transform;
+            Name = name;
+            Transform = transform;
         }
 
-        public VmcExtRootPos(string _name, Godot.Transform3D _transform, Godot.Vector3 _scale, Godot.Vector3 _offset) : base(new godotOscSharp.Address("/VMC/Ext/Root/Pos"))
+        public VmcExtRootPos(string name, Transform3D transform, Vector3 scale, Vector3 offset) : base(new OscAddress("/VMC/Ext/Root/Pos"))
         {
-            name = _name;
-            transform = _transform;
-            scale = _scale;
-            offset = _offset;
+            Name = name;
+            Transform = transform;
+            Scale = scale;
+            Offset = offset;
         }
 
-        private void Transform8(List<godotOscSharp.OscArgument> data)
-        {
-            if (data[0].Type != 's')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "name", 's', data[0].Type));
-                return;
-            }
-            if (data[1].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.x", 'f', data[1].Type));
-                return;
-            }
-            if (data[2].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.y", 'f', data[2].Type));
-                return;
-            }
-            if (data[3].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.z", 'f', data[3].Type));
-                return;
-            }
-            if (data[4].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.x", 'f', data[4].Type));
-                return;
-            }
-            if (data[5].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.y", 'f', data[5].Type));
-                return;
-            }
-            if (data[6].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.z", 'f', data[6].Type));
-                return;
-            }
-            if (data[7].Type != 'f')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.w", 'f', data[7].Type));
-                return;
-            }
-            name = (string)data[0].Value;
-            transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)data[4].Value, (float)data[5].Value, (float)data[6].Value, (float)data[7].Value)), new Godot.Vector3((float)data[1].Value, (float)data[2].Value, (float)data[3].Value));
-        }
-
-        private void Transform14(List<godotOscSharp.OscArgument> data)
+        private bool Transform8(List<OscArgument> data)
         {
             if (data[0].Type != 's')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "name", 's', data[0].Type));
-                return;
+                return false;
             }
             if (data[1].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "p.x", 'f', data[1].Type));
-                return;
+                return false;
             }
             if (data[2].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "p.y", 'f', data[2].Type));
-                return;
+                return false;
             }
             if (data[3].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "p.z", 'f', data[3].Type));
-                return;
+                return false;
             }
             if (data[4].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "q.x", 'f', data[4].Type));
-                return;
+                return false;
             }
             if (data[5].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "q.y", 'f', data[5].Type));
-                return;
+                return false;
             }
             if (data[6].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "q.z", 'f', data[6].Type));
-                return;
+                return false;
             }
             if (data[7].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "q.w", 'f', data[7].Type));
-                return;
+                return false;
+            }
+            return true;
+        }
+
+        private bool Transform14(List<OscArgument> data)
+        {
+            if (!Transform8(data))
+            {
+                return false;
             }
             if (data[8].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "s.x", 'f', data[8].Type));
-                return;
+                return false;
             }
             if (data[9].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "s.y", 'f', data[9].Type));
-                return;
+                return false;
             }
             if (data[10].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "s.z", 'f', data[10].Type));
-                return;
+                return false;
             }
             if (data[11].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "o.x", 'f', data[11].Type));
-                return;
+                return false;
             }
             if (data[12].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "o.y", 'f', data[12].Type));
-                return;
+                return false;
             }
             if (data[13].Type != 'f')
             {
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "o.z", 'f', data[13].Type));
-                return;
+                return false;
             }
-            name = (string)data[0].Value;
-            transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)data[4].Value, (float)data[5].Value, (float)data[6].Value, (float)data[7].Value)), new Godot.Vector3((float)data[1].Value, (float)data[2].Value, (float)data[3].Value));
-            scale = new Godot.Vector3((float)data[8].Value, (float)data[9].Value, (float)data[10].Value);
-            offset = new Godot.Vector3((float)data[11].Value, (float)data[12].Value, (float)data[13].Value);
+            return true;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            var quat = transform.Basis.GetRotationQuaternion();
-            if (!scale.HasValue)
+            var quat = Transform.Basis.GetRotationQuaternion();
+            if (!Scale.HasValue)
             {
-                return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                    new godotOscSharp.OscArgument(name, 's'),
-                    new godotOscSharp.OscArgument(transform.Origin.X, 'f'),
-                    new godotOscSharp.OscArgument(transform.Origin.Y, 'f'),
-                    new godotOscSharp.OscArgument(transform.Origin.Z, 'f'),
-                    new godotOscSharp.OscArgument(quat.X, 'f'),
-                    new godotOscSharp.OscArgument(quat.Y, 'f'),
-                    new godotOscSharp.OscArgument(quat.Z, 'f'),
-                    new godotOscSharp.OscArgument(quat.W, 'f'),
+                return new OscMessage(addr, new List<OscArgument>{
+                    new OscArgument(Name, 's'),
+                    new OscArgument(Transform.Origin.X, 'f'),
+                    new OscArgument(Transform.Origin.Y, 'f'),
+                    new OscArgument(Transform.Origin.Z, 'f'),
+                    new OscArgument(quat.X, 'f'),
+                    new OscArgument(quat.Y, 'f'),
+                    new OscArgument(quat.Z, 'f'),
+                    new OscArgument(quat.W, 'f'),
                 });
             }
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(name, 's'),
-                new godotOscSharp.OscArgument(transform.Origin.X, 'f'),
-                new godotOscSharp.OscArgument(transform.Origin.Y, 'f'),
-                new godotOscSharp.OscArgument(transform.Origin.Z, 'f'),
-                new godotOscSharp.OscArgument(quat.X, 'f'),
-                new godotOscSharp.OscArgument(quat.Y, 'f'),
-                new godotOscSharp.OscArgument(quat.Z, 'f'),
-                new godotOscSharp.OscArgument(quat.W, 'f'),
-                new godotOscSharp.OscArgument(scale.Value.X, 'f'),
-                new godotOscSharp.OscArgument(scale.Value.Y, 'f'),
-                new godotOscSharp.OscArgument(scale.Value.Z, 'f'),
-                new godotOscSharp.OscArgument(offset.Value.X, 'f'),
-                new godotOscSharp.OscArgument(offset.Value.Y, 'f'),
-                new godotOscSharp.OscArgument(offset.Value.Z, 'f'),
+            return new OscMessage(addr, new List<OscArgument>{
+                new OscArgument(Name, 's'),
+                new OscArgument(Transform.Origin.X, 'f'),
+                new OscArgument(Transform.Origin.Y, 'f'),
+                new OscArgument(Transform.Origin.Z, 'f'),
+                new OscArgument(quat.X, 'f'),
+                new OscArgument(quat.Y, 'f'),
+                new OscArgument(quat.Z, 'f'),
+                new OscArgument(quat.W, 'f'),
+                new OscArgument(Scale.Value.X, 'f'),
+                new OscArgument(Scale.Value.Y, 'f'),
+                new OscArgument(Scale.Value.Z, 'f'),
+                new OscArgument(Offset.Value.X, 'f'),
+                new OscArgument(Offset.Value.Y, 'f'),
+                new OscArgument(Offset.Value.Z, 'f'),
             });
         }
     }

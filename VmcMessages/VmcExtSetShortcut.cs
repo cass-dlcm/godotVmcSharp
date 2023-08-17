@@ -18,7 +18,6 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -26,7 +25,7 @@ namespace godotVmcSharp
     {
         public string shortcut { get; }
 
-        public VmcExtSetShortcut(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtSetShortcut(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 1)
             {
@@ -41,14 +40,14 @@ namespace godotVmcSharp
             shortcut = (string)m.Data[0].Value;
         }
 
-        public VmcExtSetShortcut(string _shortcut) : base(new godotOscSharp.Address("/VMC/Ext/Set/Shortcut"))
+        public VmcExtSetShortcut(string _shortcut) : base(new OscAddress("/VMC/Ext/Set/Shortcut"))
         {
             shortcut = _shortcut;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{new godotOscSharp.OscArgument(shortcut, 's')});
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{new OscArgument(shortcut, 's')});
         }
     }
 }

@@ -18,18 +18,17 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtMidiNote : VmcMessage
     {
-        public int active { get; }
-        public int channel { get; }
-        public int note { get; }
-        public float velocity { get; }
+        public int Active { get; }
+        public int Channel { get; }
+        public int Note { get; }
+        public float Velocity { get; }
 
-        public VmcExtMidiNote(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtMidiNote(OscMessage m) : base(m.Address)
         {
             if (m.Data[0].Type != 'i')
             {
@@ -56,32 +55,32 @@ namespace godotVmcSharp
                 GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[0].Value}");
                 return;
             }
-            active = (int)m.Data[0].Value;
-            channel = (int)m.Data[1].Value;
-            note = (int)m.Data[2].Value;
-            velocity = (int)m.Data[3].Value;
+            Active = (int)m.Data[0].Value;
+            Channel = (int)m.Data[1].Value;
+            Note = (int)m.Data[2].Value;
+            Velocity = (int)m.Data[3].Value;
         }
 
-        public VmcExtMidiNote(int _active, int _channel, int _note, float _velocity) : base(new godotOscSharp.Address("/VMC/Ext/Midi/Note"))
+        public VmcExtMidiNote(int active, int channel, int note, float velocity) : base(new OscAddress("/VMC/Ext/Midi/Note"))
         {
-            if (_active < 0 || _active > 1)
+            if (active < 0 || active > 1)
             {
-                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {active}.");
+                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {Active}.");
                 return;
             }
-            active = _active;
-            channel = _channel;
-            note = _note;
-            velocity = _velocity;
+            Active = active;
+            Channel = channel;
+            Note = note;
+            Velocity = velocity;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(active, 'i'),
-                new godotOscSharp.OscArgument(channel, 'i'),
-                new godotOscSharp.OscArgument(note, 'i'),
-                new godotOscSharp.OscArgument(velocity, 'f')
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Active, 'i'),
+                new OscArgument(Channel, 'i'),
+                new OscArgument(Note, 'i'),
+                new OscArgument(Velocity, 'f')
             });
         }
     }

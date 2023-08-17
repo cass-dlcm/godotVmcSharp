@@ -18,15 +18,14 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtMidiCcBit : VmcMessage
     {
-        public int knob { get; }
-        public int active { get; }
-        public VmcExtMidiCcBit(godotOscSharp.OscMessage m) : base(m.Address)
+        public int Knob { get; }
+        public int Active { get; }
+        public VmcExtMidiCcBit(OscMessage m) : base(m.Address)
         {
             if (m.Data[0].Type != 'i')
             {
@@ -43,26 +42,26 @@ namespace godotVmcSharp
                 GD.Print($"Invalid value for \"active\" argument of {addr}. Expected 0 or 1, received {(int)m.Data[1].Value}.");
                 return;
             }
-            knob = (int)m.Data[0].Value;
-            active = (int)m.Data[1].Value;
+            Knob = (int)m.Data[0].Value;
+            Active = (int)m.Data[1].Value;
         }
 
-        public VmcExtMidiCcBit(int _knob, int _active) : base(new godotOscSharp.Address("/VMC/Ext/Midi/CC/Bit"))
+        public VmcExtMidiCcBit(int knob, int active) : base(new OscAddress("/VMC/Ext/Midi/CC/Bit"))
         {
-            if (_active < 0 || _active > 1)
+            if (active < 0 || active > 1)
             {
-                GD.Print($"Invalid value for \"active\" argument of {addr}. Expected 0 or 1, received {_active}.");
+                GD.Print($"Invalid value for \"active\" argument of {addr}. Expected 0 or 1, received {active}.");
                 return;
             }
-            knob = _knob;
-            active = _active;
+            Knob = knob;
+            Active = active;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(knob, 'i'),
-                new godotOscSharp.OscArgument(active, 'i')
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Knob, 'i'),
+                new OscArgument(Active, 'i')
             });
         }
     }

@@ -18,16 +18,15 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtKey : VmcMessage
     {
-        public int active { get; }
-        public string name { get; }
-        public int keycode { get; }
-        public VmcExtKey(godotOscSharp.OscMessage m) : base(m.Address)
+        public int Active { get; }
+        public string Name { get; }
+        public int Keycode { get; }
+        public VmcExtKey(OscMessage m) : base(m.Address)
         {
             if (m.Data[0].Type != 'i')
             {
@@ -49,29 +48,29 @@ namespace godotVmcSharp
                 GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[0].Value}");
                 return;
             }
-            active = (int)m.Data[0].Value;
-            name = (string)m.Data[1].Value;
-            keycode = (int)m.Data[2].Value;
+            Active = (int)m.Data[0].Value;
+            Name = (string)m.Data[1].Value;
+            Keycode = (int)m.Data[2].Value;
         }
 
-        public VmcExtKey(int _active, string _name, int _keycode) : base(new godotOscSharp.Address("/VMC/Ext/Key"))
+        public VmcExtKey(int active, string name, int keycode) : base(new OscAddress("/VMC/Ext/Key"))
         {
-            if (_active < 0 || _active > 1)
+            if (active < 0 || active > 1)
             {
-                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {_active}");
+                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {active}");
                 return;
             }
-            active = _active;
-            name = _name;
-            keycode = _keycode;
+            Active = active;
+            Name = name;
+            Keycode = keycode;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(active, 'i'),
-                new godotOscSharp.OscArgument(name, 's'),
-                new godotOscSharp.OscArgument(keycode, 'i')
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Active, 'i'),
+                new OscArgument(Name, 's'),
+                new OscArgument(Keycode, 'i')
             });
         }
     }

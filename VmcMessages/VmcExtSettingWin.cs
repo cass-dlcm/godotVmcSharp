@@ -82,7 +82,7 @@ namespace godotVmcSharp
             hideBorder = (int)m.Data[3].Value;
         }
 
-        public VmcExtSettingWin(int _isTopMost, int _isTransparent, int _windowClickThrough, int _hideBorder) : base(new godotOscSharp.Address("/VMC/Ext/Setting/Win"))
+        public VmcExtSettingWin(int _isTopMost, int _isTransparent, int _windowClickThrough, int _hideBorder) : base(new godotOscSharp.OscAddress("/VMC/Ext/Setting/Win"))
         {
             if (_isTopMost < 0 || _isTopMost > 1)
             {

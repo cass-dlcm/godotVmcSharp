@@ -18,20 +18,19 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtCon : VmcMessage
     {
-        public int active { get; }
-        public string name { get; }
-        public int isLeft { get; }
-        public int isTouch { get; }
-        public int isAxis { get; }
-        public Godot.Vector3 axis { get; }
-        
-        public VmcExtCon(godotOscSharp.OscMessage m) : base(m.Address)
+        public int Active { get; }
+        public string Name { get; }
+        public int IsLeft { get; }
+        public int IsTouch { get; }
+        public int IsAxis { get; }
+        public Vector3 Axis { get; }
+
+        public VmcExtCon(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 8)
             {
@@ -77,40 +76,40 @@ namespace godotVmcSharp
                 GD.Print($"Invalid value for \"active\" 'i' argument of /VMC/Ext/Con. Expected 0-2, received {(int)m.Data[0].Value}");
                 return;
             }
-            active = (int)m.Data[0].Value;
-            name = (string)m.Data[1].Value;
-            isLeft = (int)m.Data[2].Value;
-            isTouch = (int)m.Data[3].Value;
-            isAxis = (int)m.Data[4].Value;
-            axis = new Godot.Vector3((float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value);
+            Active = (int)m.Data[0].Value;
+            Name = (string)m.Data[1].Value;
+            IsLeft = (int)m.Data[2].Value;
+            IsTouch = (int)m.Data[3].Value;
+            IsAxis = (int)m.Data[4].Value;
+            Axis = new Vector3((float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value);
         }
 
-        public VmcExtCon(int _active, string _name, int _isLeft, int _isTouch, int _isAxis, Godot.Vector3 _axis): base(new godotOscSharp.Address("/VMC/Ext/Con"))
+        public VmcExtCon(int active, string name, int isLeft, int isTouch, int isAxis, Vector3 axis) : base(new OscAddress("/VMC/Ext/Con"))
         {
-            if (_active < 0 || _active > 2)
+            if (active < 0 || active > 2)
             {
-                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0-2, received {_active}");
+                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0-2, received {active}");
                 return;
             }
-            active = _active;
-            name = _name;
-            isLeft = _isLeft;
-            isTouch = _isTouch;
-            isAxis = _isAxis;
-            axis = _axis;
+            Active = active;
+            Name = name;
+            IsLeft = isLeft;
+            IsTouch = isTouch;
+            IsAxis = isAxis;
+            Axis = axis;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(active, 'i'),
-                new godotOscSharp.OscArgument(name, 's'),
-                new godotOscSharp.OscArgument(isLeft, 'i'),
-                new godotOscSharp.OscArgument(isTouch, 'i'),
-                new godotOscSharp.OscArgument(isAxis, 'i'),
-                new godotOscSharp.OscArgument(axis.X, 'i'),
-                new godotOscSharp.OscArgument(axis.Y, 'i'),
-                new godotOscSharp.OscArgument(axis.Z, 'i'),
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Active, 'i'),
+                new OscArgument(Name, 's'),
+                new OscArgument(IsLeft, 'i'),
+                new OscArgument(IsTouch, 'i'),
+                new OscArgument(IsAxis, 'i'),
+                new OscArgument(Axis.X, 'i'),
+                new OscArgument(Axis.Y, 'i'),
+                new OscArgument(Axis.Z, 'i'),
             });
         }
     }

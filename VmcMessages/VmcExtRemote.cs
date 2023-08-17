@@ -18,16 +18,15 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtRemote : VmcMessage
     {
-        public string service { get; }
-        public string json { get; }
+        public string Service { get; }
+        public string Json { get; }
 
-        public VmcExtRemote(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtRemote(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 2)
             {
@@ -44,21 +43,21 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "json", 's', m.Data[1].Type));
                 return;
             }
-            service = (string)m.Data[0].Value;
-            json = (string)m.Data[1].Value;
+            Service = (string)m.Data[0].Value;
+            Json = (string)m.Data[1].Value;
         }
 
-        public VmcExtRemote(string _service, string _json) : base(new godotOscSharp.Address("/VMC/Ext/Remote"))
+        public VmcExtRemote(string service, string json) : base(new OscAddress("/VMC/Ext/Remote"))
         {
-            service = _service;
-            json = _json;
+            Service = service;
+            Json = json;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(service, 's'),
-                new godotOscSharp.OscArgument(json, 's')
+            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Service, 's'),
+                new OscArgument(Json, 's')
             });
         }
     }

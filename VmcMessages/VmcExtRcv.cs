@@ -24,11 +24,11 @@ namespace godotVmcSharp
 {
     public class VmcExtRcv : VmcMessage
     {
-        public int enable { get; }
-        public int port { get; }
-        public string? ipAddress { get; }
+        public int Enable { get; }
+        public int Port { get; }
+        public string IpAddress { get; }
 
-        public VmcExtRcv(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtRcv(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count > 3 || m.Data.Count < 2)
             {
@@ -55,10 +55,11 @@ namespace godotVmcSharp
                 GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {(int)m.Data[1].Value}.");
                 return;
             }
-            enable = (int)m.Data[0].Value;
-            port = (int)m.Data[1].Value;
+            Enable = (int)m.Data[0].Value;
+            Port = (int)m.Data[1].Value;
             if (m.Data.Count != 3)
             {
+                IpAddress = "";
                 return;
             }
             if (m.Data[2].Type != 's')
@@ -66,55 +67,56 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString(addr, "IpAddress", 's', m.Data[2].Type));
                 return;
             }
-            ipAddress = (string)m.Data[2].Value;
+            IpAddress = (string)m.Data[2].Value;
         }
 
-        public VmcExtRcv(int _enable, int _port) : base(new godotOscSharp.Address("/VMC/Ext/Rcv"))
+        public VmcExtRcv(int enable, int port) : base(new OscAddress("/VMC/Ext/Rcv"))
         {
-            if (_enable < 0 || _enable > 1)
+            if (enable < 0 || enable > 1)
             {
-                GD.Print($"Invalid value for \"enable\" argument of {addr}. Expected 0 or 1, received {_enable}.");
+                GD.Print($"Invalid value for \"enable\" argument of {addr}. Expected 0 or 1, received {enable}.");
                 return;
             }
-            if (_port < 0 || _port > 65535)
+            if (port < 0 || port > 65535)
             {
-                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {_port}.");
+                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {port}.");
                 return;
             }
-            enable = _enable;
-            port = _port;
+            Enable = enable;
+            Port = port;
+            IpAddress = "";
         }
 
-        public VmcExtRcv(int _enable, int _port, string _ipAddress) : base(new godotOscSharp.Address("/VMC/Ext/Rcv"))
+        public VmcExtRcv(int enable, int port, string ipAddress) : base(new OscAddress("/VMC/Ext/Rcv"))
         {
-            if (_enable < 0 || _enable > 1)
+            if (enable < 0 || enable > 1)
             {
-                GD.Print($"Invalid value for \"enable\" argument of {addr}. Expected 0 or 1, received {_enable}.");
+                GD.Print($"Invalid value for \"enable\" argument of {addr}. Expected 0 or 1, received {enable}.");
                 return;
             }
-            if (_port < 0 || _port > 65535)
+            if (port < 0 || port > 65535)
             {
-                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {_port}.");
+                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {port}.");
                 return;
             }
-            enable = _enable;
-            port = _port;
-            ipAddress = _ipAddress;
+            Enable = enable;
+            Port = port;
+            IpAddress = ipAddress;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            if (ipAddress == null)
+            if (IpAddress == "")
             {
-                return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                    new godotOscSharp.OscArgument(enable, 'i'),
-                    new godotOscSharp.OscArgument(port, 'i'),
+                return new OscMessage(addr, new List<OscArgument>{
+                    new OscArgument(Enable, 'i'),
+                    new OscArgument(Port, 'i'),
                 });
             }
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(enable, 'i'),
-                new godotOscSharp.OscArgument(port, 'i'),
-                new godotOscSharp.OscArgument(ipAddress, 's'),
+            return new OscMessage(addr, new List<OscArgument>{
+                new OscArgument(Enable, 'i'),
+                new OscArgument(Port, 'i'),
+                new OscArgument(IpAddress, 's'),
             });
         }
     }
