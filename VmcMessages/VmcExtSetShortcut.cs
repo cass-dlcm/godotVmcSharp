@@ -18,6 +18,7 @@
 
 using Godot;
 using godotOscSharp;
+using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
@@ -43,6 +44,11 @@ namespace godotVmcSharp
         public VmcExtSetShortcut(string _shortcut) : base(new godotOscSharp.Address("/VMC/Ext/Set/Shortcut"))
         {
             shortcut = _shortcut;
+        }
+
+        public godotOscSharp.OscMessage ToMessage()
+        {
+            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{new godotOscSharp.OscArgument(shortcut, 's')});
         }
     }
 }
