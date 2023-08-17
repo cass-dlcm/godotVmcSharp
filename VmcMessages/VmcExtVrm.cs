@@ -29,33 +29,44 @@ namespace godotVmcSharp
 
         public VmcExtVrm(godotOscSharp.OscMessage m) : base(m.Address)
         {
-            if (m.Data.Count < 2 || m.Data.Count > 3)
+            switch (m.Data.Count)
             {
-                GD.Print($"Invalid number of arguments for {addr} message. Expected 2 or 3 but received {m.Data.Count}");
-                return;
+                case 2:
+                    if (m.Data[0].Type != 's')
+                    {
+                        GD.Print(InvalidArgumentType.GetErrorString(addr, "path", 's', m.Data[0].Type));
+                        return;
+                    }
+                    if (m.Data[1].Type != 's')
+                    {
+                        GD.Print(InvalidArgumentType.GetErrorString(addr, "title", 's', m.Data[1].Type));
+                        return;
+                    }
+                    path = (string)m.Data[0].Value;
+                    title = (string)m.Data[1].Value;
+                case 3:
+                    if (m.Data[0].Type != 's')
+                    {
+                        GD.Print(InvalidArgumentType.GetErrorString(addr, "path", 's', m.Data[0].Type));
+                        return;
+                    }
+                    if (m.Data[1].Type != 's')
+                    {
+                        GD.Print(InvalidArgumentType.GetErrorString(addr, "title", 's', m.Data[1].Type));
+                        return;
+                    }
+                    if (m.Data[2].Type != 's')
+                    {
+                        GD.Print(InvalidArgumentType.GetErrorString(addr, "hash", 's', m.Data[1].Type));
+                        return;
+                    }
+                    path = (string)m.Data[0].Value;
+                    title = (string)m.Data[1].Value;
+                    hash = (string)m.Data[2].Value;
+                default:
+                    GD.Print($"Invalid number of arguments for {addr} message. Expected 2 or 3 but received {m.Data.Count}");
+                    return;
             }
-            if (m.Data[0].Type != 's')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "path", 's', m.Data[0].Type));
-                return;
-            }
-            if (m.Data[1].Type != 's')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "title", 's', m.Data[1].Type));
-                return;
-            }
-            path = (string)m.Data[0].Value;
-            title = (string)m.Data[1].Value;
-            if (m.Data.Count != 3)
-            {
-                return;
-            }
-            if (m.Data[2].Type != 's')
-            {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "hash", 's', m.Data[1].Type));
-                return;
-            }
-            hash = (string)m.Data[2].Value;
         }
     }
 }
