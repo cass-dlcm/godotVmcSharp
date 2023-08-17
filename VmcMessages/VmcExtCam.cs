@@ -23,9 +23,9 @@ namespace godotVmcSharp
     class VmcExtCam : VmcMessage
     {
 
-        public string name { get; }
-        public Godot.Transform3D transform { get; }
-        public float fov { get; }
+        public string Name { get; }
+        public Transform3D Transform { get; }
+        public float Fov { get; }
 
         public VmcExtCam(godotOscSharp.OscMessage m) : base(m.Address)
         {
@@ -79,11 +79,16 @@ namespace godotVmcSharp
                 GD.Print(InvalidArgumentType.GetErrorString("VMC/Ext/Cam", "fov", 'f', m.Data[8].Type));
                 return;
             }
-            name = (string)m.Data[0].Value;
-            transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
-            fov = (float)m.Data[8].Value;
+            Name = (string)m.Data[0].Value;
+            Transform = new Godot.Transform3D(new Godot.Basis(new Godot.Quaternion((float)m.Data[4].Value, (float)m.Data[5].Value, (float)m.Data[6].Value, (float)m.Data[7].Value)), new Godot.Vector3((float)m.Data[1].Value, (float)m.Data[2].Value, (float)m.Data[3].Value));
+            Fov = (float)m.Data[8].Value;
+        }
+
+        public VmcExtCam(string name, Transform3D transform, float fov) : base(new godotOscSharp.Address("/VMC/Ext/Cam"))
+        {
+            Name = name;
+            Transform = transform;
+            Fov = fov;
         }
     }
 }
-
-
