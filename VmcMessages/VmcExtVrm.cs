@@ -44,6 +44,7 @@ namespace godotVmcSharp
                     }
                     path = (string)m.Data[0].Value;
                     title = (string)m.Data[1].Value;
+                    break;
                 case 3:
                     if (m.Data[0].Type != 's')
                     {
@@ -63,6 +64,7 @@ namespace godotVmcSharp
                     path = (string)m.Data[0].Value;
                     title = (string)m.Data[1].Value;
                     hash = (string)m.Data[2].Value;
+                    break;
                 default:
                     GD.Print($"Invalid number of arguments for {addr} message. Expected 2 or 3 but received {m.Data.Count}");
                     return;
