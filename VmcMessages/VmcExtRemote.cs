@@ -46,5 +46,11 @@ namespace godotVmcSharp
             service = (string)m.Data[0].Value;
             json = (string)m.Data[1].Value;
         }
+
+        public VmcExtRemote(string _service, string _json) : base(new godotOscSharp.Address("/VMC/Ext/Remote"))
+        {
+            service = _service;
+            json = _json;
+        }
     }
 }
