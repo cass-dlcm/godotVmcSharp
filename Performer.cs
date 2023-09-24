@@ -16,7 +16,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
     */
 
-using System;
 using System.Net;
 using Godot;
 using godotOscSharp;
@@ -25,12 +24,15 @@ namespace godotVmcSharp
 {
     public class Performer
     {
-        private godotOscSharp.OscReceiver receiver;
-        private godotOscSharp.OscSender sender;
+        private OscReceiver receiver;
+        private OscSender sender;
+        private CameraReceiver cam;
+        private DeviceReceiver devices;
+        private DirectionalLightReceiver lights;
         public Performer(IPAddress host, int port)
         {
-            receiver = new godotOscSharp.OscReceiver(port);
-            sender = new godotOscSharp.OscSender(host, port);
+            receiver = new OscReceiver(port);
+            sender = new OscSender(host, port);
             receiver.MessageReceived += (sender, e) =>
             {
                 GD.Print($"Received a message from {e.IPAddress}:{e.Port}");
@@ -40,19 +42,17 @@ namespace godotVmcSharp
             {
                 GD.Print($"Error: {e.ErrorMessage}");
             };
+            devices = new DeviceReceiver();
+            lights = new DirectionalLightReceiver();
         }
-        private void ProcessMessage(godotOscSharp.OscMessage m)
+        private void ProcessMessage(OscMessage m)
         {
             switch (m.Address.ToString())
             {
                 case "/VMC/Ext/Hmd/Pos":
-                    new VmcExtDevicePos(m);
-                    break;
                 case "/VMC/Ext/Con/Pos":
-                    new VmcExtDevicePos(m);
-                    break;
                 case "/VMC/Ext/Tra/Pos":
-                    new VmcExtDevicePos(m);
+                    this.devices.ProcessMessage(new VmcExtDevicePos(m));
                     break;
                 case "/VMC/Ext/Set/Period":
                     new VmcExtSetPeriod(m);
@@ -61,7 +61,7 @@ namespace godotVmcSharp
                     new VmcExtMidiCcVal(m);
                     break;
                 case "/VMC/Ext/Cam":
-                    new VmcExtCam(m);
+                    this.cam.ProcessMessage(new VmcExtCam(m));
                     break;
                 case "/VMC/Ext/Blend/Val":
                     new VmcExtBlendVal(m);
@@ -88,7 +88,7 @@ namespace godotVmcSharp
                     new VmcExtSetConfig(m);
                     break;
                 case "/VMC/Ext/Light":
-                    new VmcExtLight(m);
+                    this.lights.ProcessMessage(new VmcExtLight(m));
                     break;
                 case "/VMC/Ext/Set/Shortcut":
                     new VmcExtSetShortcut(m);

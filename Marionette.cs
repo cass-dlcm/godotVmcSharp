@@ -16,24 +16,26 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
     */
 
-using System;
 using System.Net;
-using System.Collections.Generic;
+using godotOscSharp;
 using Godot;
 
 namespace godotVmcSharp
 {
     public class Marionette
     {
-        private godotOscSharp.OscReceiver receiver;
-        private godotOscSharp.OscSender sender;
+        private OscReceiver receiver;
+        private OscSender sender;
+        private CameraReceiver cam;
+        private DeviceReceiver devices;
+        private DirectionalLightReceiver lights;
         public Marionette(int port)
         {
-            receiver = new godotOscSharp.OscReceiver(port);
+            receiver = new OscReceiver(port);
             receiver.MessageReceived += (sender, e) =>
             {
                 if (sender == null) {
-                    sender = new godotOscSharp.OscSender(IPAddress.Parse(e.IPAddress), port);
+                    sender = new OscSender(IPAddress.Parse(e.IPAddress), port);
                 }
                 GD.Print($"Received a message from {e.IPAddress}:{e.Port}");
                 ProcessMessage(e.Message);
@@ -42,8 +44,10 @@ namespace godotVmcSharp
             {
                 GD.Print($"Error: {e.ErrorMessage}");
             };
+            devices = new DeviceReceiver();
+            lights = new DirectionalLightReceiver();
         }
-        private void ProcessMessage(godotOscSharp.OscMessage m)
+        private void ProcessMessage(OscMessage m)
         {
             switch (m.Address.ToString())
             {
@@ -66,7 +70,7 @@ namespace godotVmcSharp
                     new VmcMessage(m.Address);
                     break;
                 case "/VMC/Ext/Cam":
-                    new VmcExtCam(m);
+                    this.cam.ProcessMessage(new VmcExtCam(m));
                     break;
                 case "/VMC/Ext/Con":
                     new VmcExtCon(m);
@@ -84,28 +88,18 @@ namespace godotVmcSharp
                     new VmcExtMidiCcBit(m);
                     break;
                 case "/VMC/Ext/Hmd/Pos":
-                    new VmcExtDevicePos(m);
-                    break;
                 case "/VMC/Ext/Con/Pos":
-                    new VmcExtDevicePos(m);
-                    break;
                 case "/VMC/Ext/Tra/Pos":
-                    new VmcExtDevicePos(m);
-                    break;
                 case "/VMC/Ext/Hmd/Pos/Local":
-                    new VmcExtDevicePos(m);
-                    break;
                 case "/VMC/Ext/Con/Pos/Local":
-                    new VmcExtDevicePos(m);
-                    break;
                 case "/VMC/Ext/Tra/Pos/Local":
-                    new VmcExtDevicePos(m);
+                    this.devices.ProcessMessage(new VmcExtDevicePos(m));
                     break;
                 case "/VMC/Ext/Rcv":
                     new VmcExtRcv(m);
                     break;
                 case "/VMC/Ext/Light":
-                    new VmcExtLight(m);
+                    lights.ProcessMessage(new VmcExtLight(m));
                     break;
                 case "/VMC/Ext/VRM":
                     new VmcExtVrm(m);
