@@ -3,7 +3,7 @@ using Godot;
 
 namespace godotVmcSharp
 {
-    class DeviceReceiver: Node3D
+    class DeviceReceiver
     {
         readonly Dictionary<string, Node3D> devices;
         public DeviceReceiver()

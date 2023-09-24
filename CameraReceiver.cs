@@ -2,7 +2,7 @@ using Godot;
 
 namespace godotVmcSharp
 {
-    class CameraReceiver : Node3D
+    class CameraReceiver
     {
         readonly Camera3D camera;
 
