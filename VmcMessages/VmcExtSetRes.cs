@@ -24,7 +24,7 @@ namespace godotVmcSharp
 {
     public class VmcExtSetRes : VmcMessage
     {
-        public string Response { get; }
+        public readonly string Response;
 
         public VmcExtSetRes(OscMessage m) : base(m.Address)
         {

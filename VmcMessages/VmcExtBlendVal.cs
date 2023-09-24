@@ -23,8 +23,8 @@ namespace godotVmcSharp
 {
     public class VmcExtBlendVal : VmcMessage
     {
-        public string Name { get; }
-        public float Value { get; }
+        public readonly string Name;
+        public readonly float Value;
         public VmcExtBlendVal(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 2)

@@ -24,9 +24,9 @@ namespace godotVmcSharp
 {
     public class VmcExtVrm : VmcMessage
     {
-        public string Path { get; }
-        public string Title { get; }
-        public string Hash { get; }
+        public readonly string Path;
+        public readonly string Title;
+        public readonly string Hash;
 
         public VmcExtVrm(OscMessage m) : base(m.Address)
         {

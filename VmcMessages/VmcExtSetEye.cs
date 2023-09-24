@@ -23,8 +23,8 @@ namespace godotVmcSharp
 {
     public class VmcExtSetEye : VmcMessage
     {
-        public int Enable { get; }
-        public Vector3 Position { get; }
+        public readonly int Enable;
+        public readonly Vector3 Position;
 
         public VmcExtSetEye(OscMessage m) : base(m.Address)
         {

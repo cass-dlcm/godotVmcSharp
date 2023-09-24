@@ -23,8 +23,8 @@ namespace godotVmcSharp
 {
     public class VmcExtDevicePos : VmcMessage
     {
-        public string Serial { get; }
-        public Transform3D Transform { get; }
+        public readonly string Serial;
+        public readonly Transform3D Transform;
 
         public VmcExtDevicePos(OscMessage m) : base(m.Address)
         {

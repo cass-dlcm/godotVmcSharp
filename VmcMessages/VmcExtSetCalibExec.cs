@@ -23,7 +23,7 @@ namespace godotVmcSharp
 {
     public class VmcExtSetCalibExec : VmcMessage
     {
-        public int Mode { get; }
+        public readonly int Mode;
 
         public VmcExtSetCalibExec(OscMessage m) : base(m.Address)
         {

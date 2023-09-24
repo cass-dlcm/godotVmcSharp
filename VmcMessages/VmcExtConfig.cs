@@ -23,7 +23,7 @@ namespace godotVmcSharp
 {
     public class VmcExtConfig : VmcMessage
     {
-        public string Path { get; }
+        public readonly string Path;
 
         public VmcExtConfig(OscMessage m) : base(m.Address)
         {

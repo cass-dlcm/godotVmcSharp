@@ -23,7 +23,7 @@ namespace godotVmcSharp
 {
     public class VmcExtSetShortcut : VmcMessage
     {
-        public string Shortcut { get; }
+        public readonly string Shortcut;
 
         public VmcExtSetShortcut(OscMessage m) : base(m.Address)
         {

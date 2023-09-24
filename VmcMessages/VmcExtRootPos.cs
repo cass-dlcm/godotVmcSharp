@@ -25,11 +25,11 @@ namespace godotVmcSharp
 {
     public class VmcExtRootPos : VmcMessage
     {
-        public string Name { get; }
-        public Transform3D Transform { get; }
+        public readonly string Name;
+        public readonly Transform3D Transform;
 
-        public Vector3? Scale { get; }
-        public Vector3? Offset { get; }
+        public readonly Vector3? Scale;
+        public readonly Vector3? Offset;
 
         public VmcExtRootPos(OscMessage m) : base(m.Address)
         {

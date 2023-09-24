@@ -23,10 +23,10 @@ namespace godotVmcSharp
 {
     public class VmcExtMidiNote : VmcMessage
     {
-        public int Active { get; }
-        public int Channel { get; }
-        public int Note { get; }
-        public float Velocity { get; }
+        public readonly int Active;
+        public readonly int Channel;
+        public readonly int Note;
+        public readonly float Velocity;
 
         public VmcExtMidiNote(OscMessage m) : base(m.Address)
         {

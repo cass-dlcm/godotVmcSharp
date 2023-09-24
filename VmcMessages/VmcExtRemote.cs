@@ -23,8 +23,8 @@ namespace godotVmcSharp
 {
     public class VmcExtRemote : VmcMessage
     {
-        public string Service { get; }
-        public string Json { get; }
+        public readonly string Service;
+        public readonly string Json;
 
         public VmcExtRemote(OscMessage m) : base(m.Address)
         {

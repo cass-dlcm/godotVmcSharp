@@ -23,9 +23,9 @@ namespace godotVmcSharp
 {
     public class VmcExtKey : VmcMessage
     {
-        public int Active { get; }
-        public string Name { get; }
-        public int Keycode { get; }
+        public readonly int Active;
+        public readonly string Name;
+        public readonly int Keycode;
         public VmcExtKey(OscMessage m) : base(m.Address)
         {
             if (m.Data[0].Type != 'i')

@@ -23,8 +23,8 @@ namespace godotVmcSharp
 {
     public class VmcExtMidiCcVal : VmcMessage
     {
-        public int Knob { get; }
-        public float Value { get; }
+        public readonly int Knob;
+        public readonly float Value;
         public VmcExtMidiCcVal(OscMessage m) : base(m.Address)
         {
             if (m.Data[0].Type != 'i')

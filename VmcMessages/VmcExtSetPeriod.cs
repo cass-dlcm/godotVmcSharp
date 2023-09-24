@@ -23,12 +23,12 @@ namespace godotVmcSharp
 {
     public class VmcExtSetPeriod : VmcMessage
     {
-        public int Status { get; }
-        public int Root { get; }
-        public int Bone { get; }
-        public int BlendShape { get; }
-        public int Camera { get; }
-        public int Devices { get; }
+        public readonly int Status;
+        public readonly int Root;
+        public readonly int Bone;
+        public readonly int BlendShape;
+        public readonly int Camera;
+        public readonly int Devices;
 
         public VmcExtSetPeriod(OscMessage m) : base(m.Address)
         {

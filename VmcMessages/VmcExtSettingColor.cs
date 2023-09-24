@@ -18,13 +18,12 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtSettingColor : VmcMessage
     {
-        public Color Color { get; }
+        public readonly Color Color;
 
         public VmcExtSettingColor(OscMessage m) : base(m.Address)
         {
@@ -61,7 +60,7 @@ namespace godotVmcSharp
             Color = color;
         }
 
-        public OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
             return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Color.R, 'f'),

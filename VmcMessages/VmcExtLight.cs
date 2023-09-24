@@ -24,9 +24,9 @@ namespace godotVmcSharp
 {
     public class VmcExtLight : VmcMessage
     {
-        public string Name { get; }
-        public Transform3D Transform { get; }
-        public Color Color { get; }
+        public readonly string Name;
+        public readonly Transform3D Transform;
+        public readonly Color Color;
 
         public VmcExtLight(OscMessage m) : base(m.Address)
         {

@@ -23,8 +23,8 @@ namespace godotVmcSharp
 {
     public class VmcExtBonePos : VmcMessage
     {
-        public string Name { get; }
-        public Transform3D Transform { get; }
+        public readonly string Name;
+        public readonly Transform3D Transform;
 
         public VmcExtBonePos(OscMessage m) : base(m.Address)
         {

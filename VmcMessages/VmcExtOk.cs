@@ -24,10 +24,10 @@ namespace godotVmcSharp
 {
     public class VmcExtOk : VmcMessage
     {
-        public int Loaded { get; }
-        public int? CalibrationState { get; }
-        public int? CalibrationMode { get; }
-        public int? TrackingStatus { get; }
+        public readonly int Loaded;
+        public readonly int? CalibrationState;
+        public readonly int? CalibrationMode;
+        public readonly int? TrackingStatus;
 
         public VmcExtOk(int loaded) : base(new OscAddress("/VMC/Ext/OK"))
         {

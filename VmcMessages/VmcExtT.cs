@@ -23,8 +23,8 @@ namespace godotVmcSharp
 {
     public class VmcExtT : VmcMessage
     {
-        public float Time { get; }
-        public VmcExtT(godotOscSharp.OscMessage m) : base(m.Address)
+        public readonly float Time;
+        public VmcExtT(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 1)
             {
@@ -39,7 +39,7 @@ namespace godotVmcSharp
             Time = (float)m.Data[0].Value;
         }
 
-        public VmcExtT(float time) : base(new godotOscSharp.OscAddress("/VMC/Ext/T"))
+        public VmcExtT(float time) : base(new OscAddress("/VMC/Ext/T"))
         {
             Time = time;
         }

@@ -24,9 +24,9 @@ namespace godotVmcSharp
 {
     public class VmcExtRcv : VmcMessage
     {
-        public int Enable { get; }
-        public int Port { get; }
-        public string IpAddress { get; }
+        public readonly int Enable;
+        public readonly int Port;
+        public readonly string IpAddress;
 
         public VmcExtRcv(OscMessage m) : base(m.Address)
         {

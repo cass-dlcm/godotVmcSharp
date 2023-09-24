@@ -24,9 +24,9 @@ namespace godotVmcSharp
     class VmcExtCam : VmcMessage
     {
 
-        public string Name { get; }
-        public Transform3D Transform { get; }
-        public float Fov { get; }
+        public readonly string Name;
+        public readonly Transform3D Transform;
+        public readonly float Fov;
 
         public VmcExtCam(OscMessage m) : base(m.Address)
         {

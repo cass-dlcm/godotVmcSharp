@@ -23,12 +23,12 @@ namespace godotVmcSharp
 {
     public class VmcExtCon : VmcMessage
     {
-        public int Active { get; }
-        public string Name { get; }
-        public int IsLeft { get; }
-        public int IsTouch { get; }
-        public int IsAxis { get; }
-        public Vector3 Axis { get; }
+        public readonly int Active;
+        public readonly string Name;
+        public readonly int IsLeft;
+        public readonly int IsTouch;
+        public readonly int IsAxis;
+        public readonly Vector3 Axis;
 
         public VmcExtCon(OscMessage m) : base(m.Address)
         {

@@ -23,10 +23,10 @@ namespace godotVmcSharp
 {
     public class VmcExtSettingWin : VmcMessage
     {
-        public int IsTopMost { get; }
-        public int IsTransparent { get; }
-        public int WindowClickThrough { get; }
-        public int HideBorder { get; }
+        public readonly int IsTopMost;
+        public readonly int IsTransparent;
+        public readonly int WindowClickThrough;
+        public readonly int HideBorder;
 
         public VmcExtSettingWin(OscMessage m) : base(m.Address)
         {
