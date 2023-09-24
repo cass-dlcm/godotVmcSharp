@@ -99,7 +99,7 @@ namespace godotVmcSharp
                     new VmcExtRcv(m);
                     break;
                 case "/VMC/Ext/Light":
-                    lights.ProcessMessage(new VmcExtLight(m));
+                    this.lights.ProcessMessage(new VmcExtLight(m));
                     break;
                 case "/VMC/Ext/VRM":
                     new VmcExtVrm(m);
