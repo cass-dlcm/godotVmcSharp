@@ -23,7 +23,7 @@ namespace godotVmcSharp
 {
     public class VmcExtT : VmcMessage
     {
-        public float time { get; }
+        public float Time { get; }
         public VmcExtT(godotOscSharp.OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 1)
@@ -36,12 +36,19 @@ namespace godotVmcSharp
                 InvalidArgumentType.GetErrorString(m.Address.ToString(), "time", 'f', m.Data[0].Type);
                 return;
             }
-            time = (float)m.Data[0].Value;
+            Time = (float)m.Data[0].Value;
         }
 
-        public VmcExtT(float _time) : base(new godotOscSharp.OscAddress("/VMC/Ext/T"))
+        public VmcExtT(float time) : base(new godotOscSharp.OscAddress("/VMC/Ext/T"))
         {
-            time = _time;
+            Time = time;
+        }
+
+        public new OscMessage ToMessage()
+        {
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(Time, 'f')
+            });
         }
     }
 }

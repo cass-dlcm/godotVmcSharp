@@ -23,31 +23,31 @@ namespace godotVmcSharp
 {
     public class VmcExtSetShortcut : VmcMessage
     {
-        public string shortcut { get; }
+        public string Shortcut { get; }
 
         public VmcExtSetShortcut(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 1)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 1, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr}. Expecting 1, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "shortcut", 's', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "shortcut", 's', m.Data[0].Type));
                 return;
             }
-            shortcut = (string)m.Data[0].Value;
+            Shortcut = (string)m.Data[0].Value;
         }
 
-        public VmcExtSetShortcut(string _shortcut) : base(new OscAddress("/VMC/Ext/Set/Shortcut"))
+        public VmcExtSetShortcut(string shortcut) : base(new OscAddress("/VMC/Ext/Set/Shortcut"))
         {
-            shortcut = _shortcut;
+            Shortcut = shortcut;
         }
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{new OscArgument(shortcut, 's')});
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{new OscArgument(Shortcut, 's')});
         }
     }
 }

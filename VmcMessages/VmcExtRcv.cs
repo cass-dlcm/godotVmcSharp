@@ -32,27 +32,27 @@ namespace godotVmcSharp
         {
             if (m.Data.Count > 3 || m.Data.Count < 2)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 2 or 3, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr}. Expecting 2 or 3, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "enable", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "enable", 'i', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "port", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "port", 'i', m.Data[0].Type));
                 return;
             }
             if ((int)m.Data[0].Value < 0 || (int)m.Data[0].Value > 1)
             {
-                GD.Print($"Invalid value for \"enable\" argument of {addr}. Expected 0 or 1, received {(int)m.Data[0].Value}.");
+                GD.Print($"Invalid value for \"enable\" argument of {Addr}. Expected 0 or 1, received {(int)m.Data[0].Value}.");
                 return;
             }
             if ((int)m.Data[1].Value < 0 || (int)m.Data[1].Value > 65535)
             {
-                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {(int)m.Data[1].Value}.");
+                GD.Print($"Invalid value for \"port\" argument of {Addr}. Expected 0-65535, received {(int)m.Data[1].Value}.");
                 return;
             }
             Enable = (int)m.Data[0].Value;
@@ -64,7 +64,7 @@ namespace godotVmcSharp
             }
             if (m.Data[2].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "IpAddress", 's', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "IpAddress", 's', m.Data[2].Type));
                 return;
             }
             IpAddress = (string)m.Data[2].Value;
@@ -74,12 +74,12 @@ namespace godotVmcSharp
         {
             if (enable < 0 || enable > 1)
             {
-                GD.Print($"Invalid value for \"enable\" argument of {addr}. Expected 0 or 1, received {enable}.");
+                GD.Print($"Invalid value for \"enable\" argument of {Addr}. Expected 0 or 1, received {enable}.");
                 return;
             }
             if (port < 0 || port > 65535)
             {
-                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {port}.");
+                GD.Print($"Invalid value for \"port\" argument of {Addr}. Expected 0-65535, received {port}.");
                 return;
             }
             Enable = enable;
@@ -91,12 +91,12 @@ namespace godotVmcSharp
         {
             if (enable < 0 || enable > 1)
             {
-                GD.Print($"Invalid value for \"enable\" argument of {addr}. Expected 0 or 1, received {enable}.");
+                GD.Print($"Invalid value for \"enable\" argument of {Addr}. Expected 0 or 1, received {enable}.");
                 return;
             }
             if (port < 0 || port > 65535)
             {
-                GD.Print($"Invalid value for \"port\" argument of {addr}. Expected 0-65535, received {port}.");
+                GD.Print($"Invalid value for \"port\" argument of {Addr}. Expected 0-65535, received {port}.");
                 return;
             }
             Enable = enable;
@@ -108,12 +108,12 @@ namespace godotVmcSharp
         {
             if (IpAddress == "")
             {
-                return new OscMessage(addr, new List<OscArgument>{
+                return new OscMessage(Addr, new List<OscArgument>{
                     new OscArgument(Enable, 'i'),
                     new OscArgument(Port, 'i'),
                 });
             }
-            return new OscMessage(addr, new List<OscArgument>{
+            return new OscMessage(Addr, new List<OscArgument>{
                 new OscArgument(Enable, 'i'),
                 new OscArgument(Port, 'i'),
                 new OscArgument(IpAddress, 's'),

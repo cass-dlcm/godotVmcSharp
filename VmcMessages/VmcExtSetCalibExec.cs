@@ -29,12 +29,12 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 1)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 1, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr}. Expecting 1, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "mode", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "mode", 'i', m.Data[0].Type));
                 return;
             }
             if ((int)m.Data[0].Value < 0 || (int)m.Data[0].Value > 2)
@@ -57,7 +57,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{new OscArgument(Mode, 'i')});
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{new OscArgument(Mode, 'i')});
         }
     }
 }

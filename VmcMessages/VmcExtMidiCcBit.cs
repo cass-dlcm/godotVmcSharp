@@ -29,17 +29,17 @@ namespace godotVmcSharp
         {
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "knob", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "knob", 'i', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "active", 'i', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "active", 'i', m.Data[1].Type));
                 return;
             }
             if ((int)m.Data[1].Value < 0 || (int)m.Data[1].Value > 1)
             {
-                GD.Print($"Invalid value for \"active\" argument of {addr}. Expected 0 or 1, received {(int)m.Data[1].Value}.");
+                GD.Print($"Invalid value for \"active\" argument of {Addr}. Expected 0 or 1, received {(int)m.Data[1].Value}.");
                 return;
             }
             Knob = (int)m.Data[0].Value;
@@ -50,7 +50,7 @@ namespace godotVmcSharp
         {
             if (active < 0 || active > 1)
             {
-                GD.Print($"Invalid value for \"active\" argument of {addr}. Expected 0 or 1, received {active}.");
+                GD.Print($"Invalid value for \"active\" argument of {Addr}. Expected 0 or 1, received {active}.");
                 return;
             }
             Knob = knob;
@@ -59,7 +59,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Knob, 'i'),
                 new OscArgument(Active, 'i')
             });

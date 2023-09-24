@@ -30,27 +30,27 @@ namespace godotVmcSharp
         {
             if (m.Data.Count != 4)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 4, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr}. Expecting 4, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "enable", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "enable", 'i', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.x", 'f', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "p.x", 'f', m.Data[1].Type));
                 return;
             }
             if (m.Data[2].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.y", 'f', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "p.y", 'f', m.Data[2].Type));
                 return;
             }
             if (m.Data[3].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.z", 'f', m.Data[3].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "p.z", 'f', m.Data[3].Type));
                 return;
             }
             Enable = (int)m.Data[0].Value;
@@ -65,7 +65,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Enable, 'i'),
                 new OscArgument(Position.X, 'f'),
                 new OscArgument(Position.Y, 'f'),

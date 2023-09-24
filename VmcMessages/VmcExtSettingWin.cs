@@ -18,105 +18,104 @@
 
 using Godot;
 using godotOscSharp;
-using System.Collections.Generic;
 
 namespace godotVmcSharp
 {
     public class VmcExtSettingWin : VmcMessage
     {
-        public int isTopMost { get; }
-        public int isTransparent { get; }
-        public int windowClickThrough { get; }
-        public int hideBorder { get; }
+        public int IsTopMost { get; }
+        public int IsTransparent { get; }
+        public int WindowClickThrough { get; }
+        public int HideBorder { get; }
 
-        public VmcExtSettingWin(godotOscSharp.OscMessage m) : base(m.Address)
+        public VmcExtSettingWin(OscMessage m) : base(m.Address)
         {
             if (m.Data.Count != 4)
             {
-                GD.Print($"Invalid number of arguments for {addr}. Expecting 4, received {m.Data.Count}");
+                GD.Print($"Invalid number of arguments for {Addr}. Expecting 4, received {m.Data.Count}");
                 return;
             }
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "isTopMost", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "isTopMost", 'i', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "isTransparent", 'i', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "isTransparent", 'i', m.Data[1].Type));
                 return;
             }
             if (m.Data[2].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "windowClickThrough", 'i', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "windowClickThrough", 'i', m.Data[2].Type));
                 return;
             }
             if (m.Data[3].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "hideBorder", 'i', m.Data[3].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "hideBorder", 'i', m.Data[3].Type));
                 return;
             }
             if ((int)m.Data[0].Value < 0 || (int)m.Data[0].Value > 1)
             {
-                GD.Print($"Invalid value for \"isTopMost\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[0].Value}");
+                GD.Print($"Invalid value for \"isTopMost\" 'i' argument of {Addr}. Expected 0 or 1, received {(int)m.Data[0].Value}");
                 return;
             }
             if ((int)m.Data[1].Value < 0 || (int)m.Data[1].Value > 1)
             {
-                GD.Print($"Invalid value for \"isTransparent\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[1].Value}");
+                GD.Print($"Invalid value for \"isTransparent\" 'i' argument of {Addr}. Expected 0 or 1, received {(int)m.Data[1].Value}");
                 return;
             }
             if ((int)m.Data[2].Value < 0 || (int)m.Data[2].Value > 1)
             {
-                GD.Print($"Invalid value for \"windowClickThrough\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[2].Value}");
+                GD.Print($"Invalid value for \"windowClickThrough\" 'i' argument of {Addr}. Expected 0 or 1, received {(int)m.Data[2].Value}");
                 return;
             }
             if ((int)m.Data[3].Value < 0 || (int)m.Data[3].Value > 1)
             {
-                GD.Print($"Invalid value for \"hideBorder\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[3].Value}");
+                GD.Print($"Invalid value for \"hideBorder\" 'i' argument of {Addr}. Expected 0 or 1, received {(int)m.Data[3].Value}");
                 return;
             }
-            isTopMost = (int)m.Data[0].Value;
-            isTransparent = (int)m.Data[1].Value;
-            windowClickThrough = (int)m.Data[2].Value;
-            hideBorder = (int)m.Data[3].Value;
+            IsTopMost = (int)m.Data[0].Value;
+            IsTransparent = (int)m.Data[1].Value;
+            WindowClickThrough = (int)m.Data[2].Value;
+            HideBorder = (int)m.Data[3].Value;
         }
 
-        public VmcExtSettingWin(int _isTopMost, int _isTransparent, int _windowClickThrough, int _hideBorder) : base(new godotOscSharp.OscAddress("/VMC/Ext/Setting/Win"))
+        public VmcExtSettingWin(int isTopMost, int isTransparent, int windowClickThrough, int hideBorder) : base(new OscAddress("/VMC/Ext/Setting/Win"))
         {
-            if (_isTopMost < 0 || _isTopMost > 1)
+            if (isTopMost < 0 || isTopMost > 1)
             {
-                GD.Print($"Invalid value for \"isTopMost\" 'i' argument of {addr}. Expected 0 or 1, received {_isTopMost}");
+                GD.Print($"Invalid value for \"isTopMost\" 'i' argument of {Addr}. Expected 0 or 1, received {isTopMost}");
                 return;
             }
-            if (_isTransparent < 0 || _isTransparent > 1)
+            if (isTransparent < 0 || isTransparent > 1)
             {
-                GD.Print($"Invalid value for \"isTransparent\" 'i' argument of {addr}. Expected 0 or 1, received {_isTransparent}");
+                GD.Print($"Invalid value for \"isTransparent\" 'i' argument of {Addr}. Expected 0 or 1, received {isTransparent}");
                 return;
             }
-            if (_windowClickThrough < 0 || _windowClickThrough > 1)
+            if (windowClickThrough < 0 || windowClickThrough > 1)
             {
-                GD.Print($"Invalid value for \"windowClickThrough\" 'i' argument of {addr}. Expected 0 or 1, received {_windowClickThrough}");
+                GD.Print($"Invalid value for \"windowClickThrough\" 'i' argument of {Addr}. Expected 0 or 1, received {windowClickThrough}");
                 return;
             }
-            if (_hideBorder < 0 || _hideBorder > 1)
+            if (hideBorder < 0 || hideBorder > 1)
             {
-                GD.Print($"Invalid value for \"hideBorder\" 'i' argument of {addr}. Expected 0 or 1, received {_hideBorder}");
+                GD.Print($"Invalid value for \"hideBorder\" 'i' argument of {Addr}. Expected 0 or 1, received {hideBorder}");
                 return;
             }
-            isTopMost = _isTopMost;
-            isTransparent = _isTransparent;
-            windowClickThrough = _windowClickThrough;
-            hideBorder = _hideBorder;
+            IsTopMost = isTopMost;
+            IsTransparent = isTransparent;
+            WindowClickThrough = windowClickThrough;
+            HideBorder = hideBorder;
         }
 
-        public godotOscSharp.OscMessage ToMessage()
+        public new OscMessage ToMessage()
         {
-            return new godotOscSharp.OscMessage(addr, new List<godotOscSharp.OscArgument>{
-                new godotOscSharp.OscArgument(isTopMost, 'i'),
-                new godotOscSharp.OscArgument(isTransparent, 'i'),
-                new godotOscSharp.OscArgument(windowClickThrough, 'i'),
-                new godotOscSharp.OscArgument(hideBorder, 'i')
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
+                new OscArgument(IsTopMost, 'i'),
+                new OscArgument(IsTransparent, 'i'),
+                new OscArgument(WindowClickThrough, 'i'),
+                new OscArgument(HideBorder, 'i')
             });
         }
     }

@@ -37,42 +37,42 @@ namespace godotVmcSharp
             }
             if (m.Data[0].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "name", 's', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "name", 's', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.x", 'f', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "p.x", 'f', m.Data[1].Type));
                 return;
             }
             if (m.Data[2].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.y", 'f', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "p.y", 'f', m.Data[2].Type));
                 return;
             }
             if (m.Data[3].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "p.z", 'f', m.Data[3].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "p.z", 'f', m.Data[3].Type));
                 return;
             }
             if (m.Data[4].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.x", 'f', m.Data[4].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "q.x", 'f', m.Data[4].Type));
                 return;
             }
             if (m.Data[5].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.y", 'f', m.Data[5].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "q.y", 'f', m.Data[5].Type));
                 return;
             }
             if (m.Data[6].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.z", 'f', m.Data[6].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "q.z", 'f', m.Data[6].Type));
                 return;
             }
             if (m.Data[7].Type != 'f')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "q.w", 'f', m.Data[7].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "q.w", 'f', m.Data[7].Type));
                 return;
             }
             if (m.Data[8].Type != 'f')
@@ -95,7 +95,7 @@ namespace godotVmcSharp
         public new OscMessage ToMessage()
         {
             var quat = Transform.Basis.GetRotationQuaternion();
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Name, 's'),
                 new OscArgument(Transform.Origin.X, 'f'),
                 new OscArgument(Transform.Origin.Y, 'f'),

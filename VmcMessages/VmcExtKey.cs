@@ -30,22 +30,22 @@ namespace godotVmcSharp
         {
             if (m.Data[0].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "active", 'i', m.Data[0].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "active", 'i', m.Data[0].Type));
                 return;
             }
             if (m.Data[1].Type != 's')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "name", 's', m.Data[1].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "name", 's', m.Data[1].Type));
                 return;
             }
             if (m.Data[2].Type != 'i')
             {
-                GD.Print(InvalidArgumentType.GetErrorString(addr, "keycode", 'i', m.Data[2].Type));
+                GD.Print(InvalidArgumentType.GetErrorString(Addr, "keycode", 'i', m.Data[2].Type));
                 return;
             }
             if ((int)m.Data[0].Value < 0 || (int)m.Data[0].Value > 1)
             {
-                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {(int)m.Data[0].Value}");
+                GD.Print($"Invalid value for \"active\" 'i' argument of {Addr}. Expected 0 or 1, received {(int)m.Data[0].Value}");
                 return;
             }
             Active = (int)m.Data[0].Value;
@@ -57,7 +57,7 @@ namespace godotVmcSharp
         {
             if (active < 0 || active > 1)
             {
-                GD.Print($"Invalid value for \"active\" 'i' argument of {addr}. Expected 0 or 1, received {active}");
+                GD.Print($"Invalid value for \"active\" 'i' argument of {Addr}. Expected 0 or 1, received {active}");
                 return;
             }
             Active = active;
@@ -67,7 +67,7 @@ namespace godotVmcSharp
 
         public new OscMessage ToMessage()
         {
-            return new OscMessage(addr, new System.Collections.Generic.List<OscArgument>{
+            return new OscMessage(Addr, new System.Collections.Generic.List<OscArgument>{
                 new OscArgument(Active, 'i'),
                 new OscArgument(Name, 's'),
                 new OscArgument(Keycode, 'i')
